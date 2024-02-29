@@ -132,12 +132,29 @@ std::ostream& operator <<(std::ostream& os, const Graph& g) {
 }
 
 void load_graph() {
-  Vertex v(1,2);
-  Edge e1(0);
-  Edge e2(0);
-  v.add(e1);
-  v.add(e2);
-  std::cout << v << std::endl;
+  Vertex v1(0,0);
+  Vertex v2(1,0);
+  Vertex v3(1,1);
+  Vertex v4(0,1);
+
+  Edge e1(v1.pos, v2.pos);
+  Edge e2(v2.pos, v3.pos);
+  Edge e3(v3.pos, v4.pos);
+  Edge e4(v4.pos, v1.pos);
+
+  v1.add(e1);
+  v1.add(e4);
+  v2.add(e1);
+  v2.add(e2);
+  v3.add(e2);
+  v3.add(e3);
+  v4.add(e3);
+  v4.add(e4);
+
+  std::cout << v1 << std::endl;
+  std::cout << v2 << std::endl;
+  std::cout << v3 << std::endl;
+  std::cout << v4 << std::endl;
 
   std::cout << "Graph loaded!" << std::endl;
 }
