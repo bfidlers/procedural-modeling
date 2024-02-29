@@ -115,23 +115,27 @@ std::ostream& operator <<(std::ostream& os, const Vertex& v) {
 }
 
 struct Graph {
-  std::vector<Point> vertices;
+  std::vector<Vertex> vertices;
 
-  Graph(std::vector<Point> &v) {
-    vertices = v;
+  Graph() = default;
+
+  void add(Vertex &vertex) {
+    vertices.push_back(vertex);
   }
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g) {
   os << "Graph containing the following:" << std::endl;
   os << "Vertices:" << std::endl;
-  for (const Point& v: g.vertices) {
+  for (const Vertex& v: g.vertices) {
     os << v << std::endl;
   }
   return os;
 }
 
 void load_graph() {
+  Graph g;
+
   Vertex v1(0,0);
   Vertex v2(1,0);
   Vertex v3(1,1);
@@ -151,10 +155,11 @@ void load_graph() {
   v4.add(e3);
   v4.add(e4);
 
-  std::cout << v1 << std::endl;
-  std::cout << v2 << std::endl;
-  std::cout << v3 << std::endl;
-  std::cout << v4 << std::endl;
+  g.add(v1);
+  g.add(v2);
+  g.add(v3);
+  g.add(v4);
 
+  std::cout << g << std::endl;
   std::cout << "Graph loaded!" << std::endl;
 }
