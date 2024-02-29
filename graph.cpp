@@ -42,11 +42,29 @@ std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
     << "angle:" << e.angle << std::endl;
 }
 
+struct Point {
+  float x;
+  float y;
+
+  Point() {
+    x = 0;
+    y = 0;
+  }
+  Point(float x, float y) {
+    this->x = x;
+    this->y = y;
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Point& p) {
+  return os << "(" << p.x << ", " << p.y << ")";
+}
+
 void load_graph() {
-  EdgeLabel f(90);
-  EdgeLabel f2(90, "1", "2");
-  std::cout << f << std::endl;
-  std::cout << f2 << std::endl;
+  Point p(1,2);
+  Point p2;
+  std::cout << p << std::endl;
+  std::cout << p2 << std::endl;
 
   std::cout << "Graph loaded!" << std::endl;
 }
