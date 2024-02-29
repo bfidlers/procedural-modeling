@@ -43,6 +43,24 @@ std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
     << "angle:" << e.angle << std::endl;
 }
 
+struct Edge{
+  EdgeLabel label = EdgeLabel(0);
+
+  Edge(EdgeLabel label) : label(label) {
+  }
+  Edge(float a, std::string left, std::string right) {
+    EdgeLabel l(a, left, right);
+    label = l;
+  }
+  Edge(float angle) {
+    label.angle = angle;
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Edge& e) {
+  return os << "Edge containing the following information:" << std::endl << e.label;
+}
+
 struct Point {
   float x;
   float y;
