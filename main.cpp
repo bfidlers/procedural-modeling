@@ -1,6 +1,5 @@
-#include "hello.h"
-#include <iostream>
+#include "graph.h"
 
 int main() {
-  hello_world();
+  load_graph();
 }
