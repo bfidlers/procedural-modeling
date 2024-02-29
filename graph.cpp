@@ -13,7 +13,7 @@ struct Face {
 };
 
 std::ostream& operator <<(std::ostream& os, const Face& f) {
-  return os << "Face with id: " << f.id << std::endl;
+  return os << "Face with id: " << f.id;
 }
 
 struct EdgeLabel {
