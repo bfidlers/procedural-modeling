@@ -79,6 +79,32 @@ std::ostream& operator <<(std::ostream& os, const Point& p) {
   return os << "(" << p.x << ", " << p.y << ")";
 }
 
+struct Vertex {
+  Point pos;
+  std::vector<Edge> edges;
+
+  Vertex(Point p) {
+    pos = p;
+  }
+  Vertex(float x, float y) {
+    pos.x = x;
+    pos.y = y;
+  }
+
+  void add(Edge &edge) {
+    edges.push_back(edge);
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Vertex& v) {
+  os << "Vertex with position: " << v.pos << std::endl;
+  os << "and edges: " << std::endl;
+  for (const Edge& edge: v.edges) {
+    os << edge;
+  }
+  return os;
+}
+
 struct Graph {
   std::vector<Point> vertices;
 
@@ -97,13 +123,12 @@ std::ostream& operator <<(std::ostream& os, const Graph& g) {
 }
 
 void load_graph() {
-  Point p(1,2);
-  Point p2;
-  std::vector<Point> v;
-  v.push_back(p);
-  v.push_back(p2);
-  Graph g(v);
-  std::cout << g << std::endl;
+  Vertex v(1,2);
+  Edge e1(0);
+  Edge e2(0);
+  v.add(e1);
+  v.add(e2);
+  std::cout << v << std::endl;
 
   std::cout << "Graph loaded!" << std::endl;
 }
