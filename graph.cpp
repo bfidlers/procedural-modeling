@@ -85,6 +85,7 @@ struct Edge{
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
   os << "Edge containing the following information:" << std::endl << e.label;
   os << "from origin: " << e.origin << std::endl;
+  return os;
 }
 
 struct Vertex {
