@@ -1,6 +1,26 @@
+#include "graph.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
+
+struct Point {
+  float x;
+  float y;
+
+  Point() {
+    x = 0;
+    y = 0;
+  }
+  Point(float x, float y) {
+    this->x = x;
+    this->y = y;
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Point& p) {
+  return os << "(" << p.x << ", " << p.y << ")";
+}
 
 struct Face {
   std::string id;
@@ -45,38 +65,26 @@ std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
 
 struct Edge{
   EdgeLabel label = EdgeLabel(0);
+  Point origin;
 
   Edge(EdgeLabel label) : label(label) {
+  }
+  Edge(float angle) {
+    label.angle = angle;
   }
   Edge(float a, std::string left, std::string right) {
     EdgeLabel l(a, left, right);
     label = l;
   }
-  Edge(float angle) {
-    label.angle = angle;
+  Edge(Point p1, Point p2) {
+    label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
+    origin = p1;
   }
 };
 
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
-  return os << "Edge containing the following information:" << std::endl << e.label;
-}
-
-struct Point {
-  float x;
-  float y;
-
-  Point() {
-    x = 0;
-    y = 0;
-  }
-  Point(float x, float y) {
-    this->x = x;
-    this->y = y;
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Point& p) {
-  return os << "(" << p.x << ", " << p.y << ")";
+  os << "Edge containing the following information:" << std::endl << e.label;
+  os << "from origin: " << e.origin << std::endl;
 }
 
 struct Vertex {
