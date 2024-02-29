@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 struct Face {
   std::string id;
@@ -60,11 +61,31 @@ std::ostream& operator <<(std::ostream& os, const Point& p) {
   return os << "(" << p.x << ", " << p.y << ")";
 }
 
+struct Graph {
+  std::vector<Point> vertices;
+
+  Graph(std::vector<Point> &v) {
+    vertices = v;
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Graph& g) {
+  os << "Graph containing the following:" << std::endl;
+  os << "Vertices:" << std::endl;
+  for (const Point& v: g.vertices) {
+    os << v << std::endl;
+  }
+  return os;
+}
+
 void load_graph() {
   Point p(1,2);
   Point p2;
-  std::cout << p << std::endl;
-  std::cout << p2 << std::endl;
+  std::vector<Point> v;
+  v.push_back(p);
+  v.push_back(p2);
+  Graph g(v);
+  std::cout << g << std::endl;
 
   std::cout << "Graph loaded!" << std::endl;
 }
