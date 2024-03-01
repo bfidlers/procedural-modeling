@@ -42,6 +42,9 @@ struct EdgeLabel {
   Face rightFace;
   float angle;
 
+  EdgeLabel() {
+    angle = 0;
+  }
   EdgeLabel(float a) {
     angle = a;
   }
@@ -53,9 +56,10 @@ struct EdgeLabel {
   EdgeLabel(float a, Face left, Face right) {
     angle = a;
     leftFace = left;
-    leftFace = right;
+    rightFace = right;
   }
-  EdgeLabel get_inverse() {
+
+  EdgeLabel get_inverse() const {
     EdgeLabel inverse(-angle, rightFace, leftFace);
     return inverse;
   }
@@ -81,6 +85,12 @@ struct Edge{
     label = l;
   }
   Edge(Point p1, Point p2) {
+    label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
+    origin = p1;
+  }
+  Edge(Point p1, Point p2, std::string left, std::string right) {
+    label.leftFace = left;
+    label.rightFace = right;
     label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
     origin = p1;
   }
@@ -166,4 +176,14 @@ void load_graph() {
 
   std::cout << g << std::endl;
   std::cout << "Graph loaded!" << std::endl;
+}
+
+void test() {
+  Vertex v1(0,0);
+  Vertex v2(1,1);
+
+  Edge e1(v1.pos, v2.pos, "1", "2");
+  std::cout << e1.label << std::endl;
+  EdgeLabel inverse = e1.label.get_inverse();
+  std::cout << inverse << std::endl;
 }
