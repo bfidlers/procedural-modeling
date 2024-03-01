@@ -44,27 +44,28 @@ std::ostream& operator <<(std::ostream& os, const Face& f) {
 struct EdgeLabel {
   Face leftFace;
   Face rightFace;
-  float angle;
+  int angle;
 
   EdgeLabel() {
     angle = 0;
   }
-  EdgeLabel(float a) {
+  EdgeLabel(int a) {
     angle = a;
   }
-  EdgeLabel(float a, std::string left, std::string right) {
+  EdgeLabel(int a, std::string left, std::string right) {
     angle = a;
     leftFace.id = left;
     rightFace.id = right;
   }
-  EdgeLabel(float a, Face left, Face right) {
+  EdgeLabel(int a, Face left, Face right) {
     angle = a;
     leftFace = left;
     rightFace = right;
   }
 
   EdgeLabel get_inverse() const {
-    EdgeLabel inverse(-angle, rightFace, leftFace);
+    int new_angle = angle > 0 ? angle - 180 : angle + 180;
+    EdgeLabel inverse(new_angle, rightFace, leftFace);
     return inverse;
   }
 };
@@ -81,21 +82,21 @@ struct Edge{
 
   Edge(EdgeLabel label) : label(label) {
   }
-  Edge(float angle) {
+  Edge(int angle) {
     label.angle = angle;
   }
-  Edge(float a, std::string left, std::string right) {
-    EdgeLabel l(a, left, right);
+  Edge(int angle, std::string left, std::string right) {
+    EdgeLabel l(angle, left, right);
     label = l;
   }
   Edge(Point p1, Point p2) {
-    label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
+    label.angle = std::round(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
     origin = p1;
   }
   Edge(Point p1, Point p2, std::string left, std::string right) {
     label.leftFace = left;
     label.rightFace = right;
-    label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
+    label.angle = std::round(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
     origin = p1;
   }
 
