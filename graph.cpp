@@ -100,7 +100,7 @@ struct Edge{
     origin = p1;
   }
 
-  EdgeLabel get_primitive_edge(Point p) {
+  EdgeLabel get_primitive_edge(Point p) const {
     if (origin == p) {
       return label;
     } else {
@@ -112,6 +112,27 @@ struct Edge{
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
   os << "Edge containing the following information:" << std::endl << e.label;
   os << "from origin: " << e.origin << std::endl;
+  return os;
+}
+
+struct Primitive {
+  Point pos;
+  std::vector<EdgeLabel> half_edges;
+
+  Primitive(Point p) {
+    pos = p;
+  }
+
+  void add(EdgeLabel edge) {
+    half_edges.push_back(edge);
+  }
+};
+
+std::ostream& operator <<(std::ostream& os, const Primitive& p) {
+  os << "Primitive: " << p.pos << std::endl;
+  for (const EdgeLabel& e: p.half_edges) {
+    os << e << std::endl;
+  }
   return os;
 }
 
@@ -129,6 +150,14 @@ struct Vertex {
 
   void add(Edge &edge) {
     edges.push_back(edge);
+  }
+
+  Primitive generate_primitive() {
+    Primitive p(pos);
+    for (const Edge &e: edges) {
+      p.add(e.get_primitive_edge(pos));
+    }
+    return p;
   }
 };
 
@@ -193,12 +222,19 @@ void load_graph() {
 
 void test() {
   Vertex v1(0,0);
-  Vertex v2(1,1);
+  Vertex v2(1,0);
+  Vertex v3(1,1);
+  Vertex v4(0,1);
 
-  Edge e1(v1.pos, v2.pos, "1", "2");
+  Edge e1(v1.pos, v2.pos);
+  Edge e2(v1.pos, v3.pos);
+  Edge e3(v1.pos, v4.pos);
 
-  EdgeLabel el1 = e1.get_primitive_edge(v1.pos);
-  EdgeLabel el2 = e1.get_primitive_edge(v2.pos);
-  std::cout << el1 << std::endl;
-  std::cout << el2 << std::endl;
+  v1.add(e1);
+  v1.add(e2);
+  v1.add(e3);
+
+  Primitive p = v1.generate_primitive();
+
+  std::cout << p << std::endl;
 }
