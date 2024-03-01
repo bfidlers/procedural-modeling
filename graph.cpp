@@ -16,6 +16,10 @@ struct Point {
     this->x = x;
     this->y = y;
   }
+
+  bool operator==(const Point& other) const {
+    return x == other.x && y == other.y;
+  }
 };
 
 std::ostream& operator <<(std::ostream& os, const Point& p) {
@@ -93,6 +97,14 @@ struct Edge{
     label.rightFace = right;
     label.angle = static_cast<float>(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
     origin = p1;
+  }
+
+  EdgeLabel get_primitive_edge(Point p) {
+    if (origin == p) {
+      return label;
+    } else {
+      return label.get_inverse();
+    }
   }
 };
 
@@ -183,7 +195,9 @@ void test() {
   Vertex v2(1,1);
 
   Edge e1(v1.pos, v2.pos, "1", "2");
-  std::cout << e1.label << std::endl;
-  EdgeLabel inverse = e1.label.get_inverse();
-  std::cout << inverse << std::endl;
+
+  EdgeLabel el1 = e1.get_primitive_edge(v1.pos);
+  EdgeLabel el2 = e1.get_primitive_edge(v2.pos);
+  std::cout << el1 << std::endl;
+  std::cout << el2 << std::endl;
 }
