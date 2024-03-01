@@ -55,6 +55,10 @@ struct EdgeLabel {
     leftFace = left;
     leftFace = right;
   }
+  EdgeLabel get_inverse() {
+    EdgeLabel inverse(-angle, rightFace, leftFace);
+    return inverse;
+  }
 };
 
 std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
