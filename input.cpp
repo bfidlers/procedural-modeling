@@ -1,50 +1,10 @@
 #include "input.h"
 #include "Point.h"
-#include "Face.h"
 #include "EdgeLabel.h"
+#include "Edge.h"
 
 #include <iostream>
-#include <string>
 #include <vector>
-
-struct Edge{
-  EdgeLabel label = EdgeLabel(0);
-  Point origin;
-
-  Edge(EdgeLabel label) : label(label) {
-  }
-  Edge(int angle) {
-    label.angle = angle;
-  }
-  Edge(int angle, std::string left, std::string right) {
-    EdgeLabel l(angle, left, right);
-    label = l;
-  }
-  Edge(Point p1, Point p2) {
-    label.angle = std::round(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
-    origin = p1;
-  }
-  Edge(Point p1, Point p2, std::string left, std::string right) {
-    label.leftFace = left;
-    label.rightFace = right;
-    label.angle = std::round(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
-    origin = p1;
-  }
-
-  EdgeLabel get_primitive_edge(Point p) const {
-    if (origin == p) {
-      return label;
-    } else {
-      return label.get_inverse();
-    }
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Edge& e) {
-  os << "Edge containing the following information:" << std::endl << e.label;
-  os << "from origin: " << e.origin << std::endl;
-  return os;
-}
 
 struct Primitive {
   Point pos;
