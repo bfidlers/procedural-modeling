@@ -11,6 +11,7 @@ add_library(ProcMod_lib OBJECT
     Face.cpp
     EdgeLabel.cpp
     Edge.cpp
+    Primitive.cpp
 )
 
 target_include_directories(ProcMod_lib PUBLIC .)

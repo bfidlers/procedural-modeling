@@ -1,31 +1,10 @@
 #include "input.h"
 #include "Point.h"
-#include "EdgeLabel.h"
 #include "Edge.h"
+#include "Primitive.h"
 
 #include <iostream>
 #include <vector>
-
-struct Primitive {
-  Point pos;
-  std::vector<EdgeLabel> half_edges;
-
-  Primitive(Point p) {
-    pos = p;
-  }
-
-  void add(EdgeLabel edge) {
-    half_edges.push_back(edge);
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Primitive& p) {
-  os << "Primitive: " << p.pos << std::endl;
-  for (const EdgeLabel& e: p.half_edges) {
-    os << e << std::endl;
-  }
-  return os;
-}
 
 struct Vertex {
   Point pos;
