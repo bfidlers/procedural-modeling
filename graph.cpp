@@ -152,7 +152,7 @@ struct Vertex {
     edges.push_back(edge);
   }
 
-  Primitive generate_primitive() {
+  Primitive generate_primitive() const {
     Primitive p(pos);
     for (const Edge &e: edges) {
       p.add(e.get_primitive_edge(pos));
@@ -178,6 +178,12 @@ struct Graph {
   void add(Vertex &vertex) {
     vertices.push_back(vertex);
   }
+
+  void split_primitives(std::vector<Primitive>& primitives) {
+    for (const Vertex& v: vertices) {
+      primitives.push_back(v.generate_primitive());
+    }
+  }
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g) {
@@ -189,7 +195,7 @@ std::ostream& operator <<(std::ostream& os, const Graph& g) {
   return os;
 }
 
-void load_graph() {
+void test() {
   Graph g;
 
   Vertex v1(0,0);
@@ -216,25 +222,9 @@ void load_graph() {
   g.add(v3);
   g.add(v4);
 
-  std::cout << g << std::endl;
-  std::cout << "Graph loaded!" << std::endl;
-}
-
-void test() {
-  Vertex v1(0,0);
-  Vertex v2(1,0);
-  Vertex v3(1,1);
-  Vertex v4(0,1);
-
-  Edge e1(v1.pos, v2.pos);
-  Edge e2(v1.pos, v3.pos);
-  Edge e3(v1.pos, v4.pos);
-
-  v1.add(e1);
-  v1.add(e2);
-  v1.add(e3);
-
-  Primitive p = v1.generate_primitive();
-
-  std::cout << p << std::endl;
+  std::vector<Primitive> primitives;
+  g.split_primitives(primitives);
+  for (const Primitive& p: primitives) {
+    std::cout << p << std::endl;
+  }
 }
