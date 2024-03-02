@@ -1,4 +1,4 @@
-#include "face.h"
+#include "Face.h"
 
 Face::Face() {
   id = "blank";

@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 add_library(ProcMod_lib OBJECT
     input.cpp
-    point.cpp
-    face.cpp
+    Point.cpp
+    Face.cpp
     EdgeLabel.cpp
 )
 
