@@ -2,34 +2,10 @@
 #include "Edge.h"
 #include "Primitive.h"
 #include "Vertex.h"
+#include "Graph.h"
 
 #include <iostream>
 #include <vector>
-
-struct Graph {
-  std::vector<Vertex> vertices;
-
-  Graph() = default;
-
-  void add(Vertex &vertex) {
-    vertices.push_back(vertex);
-  }
-
-  void split_primitives(std::vector<Primitive>& primitives) {
-    for (const Vertex& v: vertices) {
-      primitives.push_back(v.generate_primitive());
-    }
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Graph& g) {
-  os << "Graph containing the following:" << std::endl;
-  os << "Vertices:" << std::endl;
-  for (const Vertex& v: g.vertices) {
-    os << v << std::endl;
-  }
-  return os;
-}
 
 void test() {
   Graph g;

@@ -13,6 +13,7 @@ add_library(ProcMod_lib OBJECT
     Edge.cpp
     Primitive.cpp
     Vertex.cpp
+    Graph.cpp
 )
 
 target_include_directories(ProcMod_lib PUBLIC .)
