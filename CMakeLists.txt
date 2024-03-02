@@ -12,6 +12,7 @@ add_library(ProcMod_lib OBJECT
     EdgeLabel.cpp
     Edge.cpp
     Primitive.cpp
+    Vertex.cpp
 )
 
 target_include_directories(ProcMod_lib PUBLIC .)

@@ -1,44 +1,10 @@
 #include "input.h"
-#include "Point.h"
 #include "Edge.h"
 #include "Primitive.h"
+#include "Vertex.h"
 
 #include <iostream>
 #include <vector>
-
-struct Vertex {
-  Point pos;
-  std::vector<Edge> edges;
-
-  Vertex(Point p) {
-    pos = p;
-  }
-  Vertex(float x, float y) {
-    pos.x = x;
-    pos.y = y;
-  }
-
-  void add(Edge &edge) {
-    edges.push_back(edge);
-  }
-
-  Primitive generate_primitive() const {
-    Primitive p(pos);
-    for (const Edge &e: edges) {
-      p.add(e.get_primitive_edge(pos));
-    }
-    return p;
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Vertex& v) {
-  os << "Vertex with position: " << v.pos << std::endl;
-  os << "and edges: " << std::endl;
-  for (const Edge& edge: v.edges) {
-    os << edge;
-  }
-  return os;
-}
 
 struct Graph {
   std::vector<Vertex> vertices;
