@@ -1,24 +1,10 @@
 #include "input.h"
 #include "point.h"
+#include "face.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
-
-struct Face {
-  std::string id;
-
-  Face() {
-    id = "blank";
-  }
-  Face(std::string s) {
-    id = s;
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Face& f) {
-  return os << "Face with id: " << f.id;
-}
 
 struct EdgeLabel {
   Face leftFace;
