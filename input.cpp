@@ -1,45 +1,11 @@
 #include "input.h"
 #include "point.h"
 #include "face.h"
+#include "EdgeLabel.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
-
-struct EdgeLabel {
-  Face leftFace;
-  Face rightFace;
-  int angle;
-
-  EdgeLabel() {
-    angle = 0;
-  }
-  EdgeLabel(int a) {
-    angle = a;
-  }
-  EdgeLabel(int a, std::string left, std::string right) {
-    angle = a;
-    leftFace.id = left;
-    rightFace.id = right;
-  }
-  EdgeLabel(int a, Face left, Face right) {
-    angle = a;
-    leftFace = left;
-    rightFace = right;
-  }
-
-  EdgeLabel get_inverse() const {
-    int new_angle = angle > 0 ? angle - 180 : angle + 180;
-    EdgeLabel inverse(new_angle, rightFace, leftFace);
-    return inverse;
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
-  return os << "leftFace: " << e.leftFace << std::endl
-    << "rightFace: " << e.rightFace << std::endl
-    << "angle:" << e.angle << std::endl;
-}
 
 struct Edge{
   EdgeLabel label = EdgeLabel(0);

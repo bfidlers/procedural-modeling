@@ -9,6 +9,7 @@ add_library(ProcMod_lib OBJECT
     input.cpp
     point.cpp
     face.cpp
+    EdgeLabel.cpp
 )
 
 target_include_directories(ProcMod_lib PUBLIC .)
