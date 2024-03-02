@@ -1,20 +1,20 @@
 #ifndef PROCEDURAL_MODELING_EDGE_LABEL_H
 #define PROCEDURAL_MODELING_EDGE_LABEL_H
 
-#include "Face.h"
+#include "face.h"
 #include <iostream>
 #include <string>
 
 class EdgeLabel {
 public:
-  Face leftFace;
-  Face rightFace;
+  face leftFace;
+  face rightFace;
   int angle;
 
   EdgeLabel();
   EdgeLabel(int a);
   EdgeLabel(int a, std::string left, std::string right);
-  EdgeLabel(int a, Face left, Face right);
+  EdgeLabel(int a, face left, face right);
   EdgeLabel get_inverse() const;
 };
 

@@ -1,12 +1,12 @@
-#include "Face.h"
+#include "face.h"
 
-Face::Face() {
+face::face() {
   id = "blank";
 }
-Face::Face(std::string s) {
+face::face(std::string s) {
   id = s;
 }
 
-std::ostream& operator <<(std::ostream& os, const Face& f) {
-  return os << "Face with id: " << f.id;
+std::ostream& operator <<(std::ostream& os, const face& f) {
+  return os << "face with id: " << f.id;
 }
