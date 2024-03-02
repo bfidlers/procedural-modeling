@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 add_library(ProcMod_lib OBJECT
-    graph.cpp
+    input.cpp
 )
 
 target_include_directories(ProcMod_lib PUBLIC .)

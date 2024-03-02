@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "input.h"
 
 int main() {
   test();
