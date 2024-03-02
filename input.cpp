@@ -1,30 +1,9 @@
 #include "input.h"
+#include "point.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
-
-struct Point {
-  float x;
-  float y;
-
-  Point() {
-    x = 0;
-    y = 0;
-  }
-  Point(float x, float y) {
-    this->x = x;
-    this->y = y;
-  }
-
-  bool operator==(const Point& other) const {
-    return x == other.x && y == other.y;
-  }
-};
-
-std::ostream& operator <<(std::ostream& os, const Point& p) {
-  return os << "(" << p.x << ", " << p.y << ")";
-}
 
 struct Face {
   std::string id;
