@@ -11,7 +11,7 @@ EdgeLabel::EdgeLabel(int a, std::string left, std::string right) {
   leftFace.id = left;
   rightFace.id = right;
 }
-EdgeLabel::EdgeLabel(int a, face left, face right) {
+EdgeLabel::EdgeLabel(int a, Face left, Face right) {
   angle = a;
   leftFace = left;
   rightFace = right;

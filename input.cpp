@@ -1,6 +1,6 @@
 #include "input.h"
 #include "Point.h"
-#include "face.h"
+#include "Face.h"
 #include "EdgeLabel.h"
 
 #include <iostream>

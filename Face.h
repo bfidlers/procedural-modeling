@@ -4,14 +4,14 @@
 #include <iostream>
 #include <string>
 
-class face {
+class Face {
 public:
   std::string id;
 
-  face();
-  face(std::string s);
+  Face();
+  Face(std::string s);
 };
 
-std::ostream& operator <<(std::ostream& os, const face& f);
+std::ostream& operator <<(std::ostream& os, const Face& f);
 
 #endif //PROCEDURAL_MODELING_FACE_H
