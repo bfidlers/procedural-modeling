@@ -1,4 +1,4 @@
-#include "input.h"
+#include "Input.h"
 #include "Edge.h"
 #include "Vertex.h"
 #include "Graph.h"

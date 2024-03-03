@@ -1,4 +1,4 @@
-#include "input.h"
+#include "Input.h"
 #include "Graph.h"
 #include "Primitive.h"
 
