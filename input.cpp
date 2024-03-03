@@ -1,13 +1,9 @@
 #include "input.h"
 #include "Edge.h"
-#include "Primitive.h"
 #include "Vertex.h"
 #include "Graph.h"
 
-#include <iostream>
-#include <vector>
-
-void load_graph(Graph& g) {
+void load_square(Graph& g) {
   Vertex v1(0,0);
   Vertex v2(1,0);
   Vertex v3(1,1);
@@ -31,5 +27,8 @@ void load_graph(Graph& g) {
   g.add(v2);
   g.add(v3);
   g.add(v4);
+}
 
+void load_graph(Graph& g) {
+  load_square(g);
 }

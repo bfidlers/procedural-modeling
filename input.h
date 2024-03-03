@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 
+void load_square(Graph& g);
 void load_graph(Graph& g);
 
 #endif //PROCEDURAL_MODELING_INPUT_H
