@@ -7,9 +7,7 @@
 #include <iostream>
 #include <vector>
 
-void test() {
-  Graph g;
-
+void load_graph(Graph& g) {
   Vertex v1(0,0);
   Vertex v2(1,0);
   Vertex v3(1,1);
@@ -34,9 +32,4 @@ void test() {
   g.add(v3);
   g.add(v4);
 
-  std::vector<Primitive> primitives;
-  g.split_primitives(primitives);
-  for (const Primitive& p: primitives) {
-    std::cout << p << std::endl;
-  }
 }
