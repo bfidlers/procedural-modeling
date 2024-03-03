@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 
+void load_triangle(Graph& g);
 void load_square(Graph& g);
 void load_graph(Graph& g);
 
