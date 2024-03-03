@@ -8,5 +8,5 @@ Face::Face(std::string s) {
 }
 
 std::ostream& operator <<(std::ostream& os, const Face& f) {
-  return os << "Face with id: " << f.id;
+  return os << f.id;
 }

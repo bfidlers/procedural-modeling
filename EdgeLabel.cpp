@@ -24,7 +24,5 @@ EdgeLabel EdgeLabel::get_inverse() const {
 }
 
 std::ostream& operator <<(std::ostream& os, const EdgeLabel& e) {
-  return os << "leftFace: " << e.leftFace << std::endl
-            << "rightFace: " << e.rightFace << std::endl
-            << "angle:" << e.angle << std::endl;
+  return os << "(" << e.leftFace << ", " << e.rightFace << ", " << e.angle << ")";
 }
