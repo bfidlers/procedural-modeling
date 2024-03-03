@@ -51,5 +51,5 @@ void load_square(Graph& g) {
 }
 
 void load_graph(Graph& g) {
-  load_triangle(g);
+  load_square(g);
 }
