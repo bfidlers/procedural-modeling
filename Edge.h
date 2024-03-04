@@ -11,6 +11,7 @@ class Edge {
 public:
   EdgeLabel label = EdgeLabel(0);
   Point origin;
+  Point dest;
 
   Edge(EdgeLabel label);
   Edge(int angle);
@@ -19,6 +20,7 @@ public:
   Edge(Point p1, Point p2, std::string left, std::string right);
 
   EdgeLabel get_primitive_edge(Point p) const;
+  void draw() const;
 };
 
 std::ostream& operator <<(std::ostream& os, const Edge& edge);

@@ -19,6 +19,7 @@ public:
   void add(Edge &edge);
 
   void split_primitives(std::vector<Primitive>& primitives);
+  void draw() const;
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g);

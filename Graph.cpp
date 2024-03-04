@@ -14,6 +14,12 @@ void Graph::split_primitives(std::vector<Primitive>& primitives) {
   }
 }
 
+void Graph::draw() const {
+  for (const Edge &e: edges) {
+    e.draw();
+  }
+}
+
 std::ostream& operator <<(std::ostream& os, const Graph& g) {
   os << "Graph containing the following:" << std::endl;
   os << "Vertices:" << std::endl;

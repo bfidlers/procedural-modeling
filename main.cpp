@@ -11,6 +11,7 @@ const int WINDOW_X = 100;
 const int WINDOW_Y = 100;
 int window_w = 1000;
 int window_h = 1000;
+Graph g;
 
 void display();
 
@@ -26,7 +27,6 @@ void initWindow(int argc, char** argv) {
 }
 
 int main(int argc, char ** argv){
-  Graph g;
   load_graph(g);
 
   // Split graph into primitives
@@ -58,11 +58,7 @@ void display(){
             0.0, 0.0, -1.0,
             0.0, 1.0, 0.0);
 
-  glBegin(GL_LINES);
-  glVertex3f(-0.5, -0.5, 0);
-  glVertex3f( 0.5, -0.5, 0);
-  glVertex3f( 0.5,  0.5, 0);
-  glVertex3f(-0.5,  0.5, 0);
-  glEnd();
+  g.draw();
+
   glFlush();
 }
