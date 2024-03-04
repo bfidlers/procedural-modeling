@@ -7,21 +7,23 @@
 #include "Graph.h"
 #include "Primitive.h"
 
+const int WINDOW_X = 100;
+const int WINDOW_Y = 100;
+int window_w = 1000;
+int window_h = 1000;
+
 void display();
-void initCanvas(int argc, char ** argv) {
+
+void initWindow(int argc, char** argv) {
   std::cerr << "[INFO] Starting OpenGL main loop." << std::endl;
   glutInit(&argc, argv);
-  glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-  glutInitWindowSize(500, 500);
+  glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+  glutInitWindowSize(window_w, window_h);
+  glutInitWindowPosition(WINDOW_X, WINDOW_Y);
   glutCreateWindow("Window 1");
 
   glutDisplayFunc(display);
 }
-void canvasLoop() {
-  glutMainLoop();
-  std::cerr << "[INFO] Exit OpenGL main loop." << std::endl;
-}
-
 
 int main(int argc, char ** argv){
   Graph g;
@@ -34,15 +36,29 @@ int main(int argc, char ** argv){
     std::cout << p << std::endl;
   }
 
-  initCanvas(argc, argv);
-  canvasLoop();
+  initWindow(argc, argv);
+  glutMainLoop();
+  std::cerr << "[INFO] Exit OpenGL main loop." << std::endl;
   return 0;
 }
 void display(){
   std::cerr << "[INFO] Running loop." << std::endl;
+  // Probably necessary to make background white for exports.
+  // glClearColor(1.0, 1.0, 1.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT);
   glColor3f(1.0, 1.0, 1.0);
-  glBegin(GL_POLYGON);
+
+  // This zooms the camera out a bit, probably more complex than needed.
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective (90, 1, 1, 3);
+  glOrtho(-1, 1, -1.0, 1, 1, 3);
+
+  gluLookAt(0.0, 0.0, 0.0,
+            0.0, 0.0, -1.0,
+            0.0, 1.0, 0.0);
+
+  glBegin(GL_LINES);
   glVertex3f(-0.5, -0.5, 0);
   glVertex3f( 0.5, -0.5, 0);
   glVertex3f( 0.5,  0.5, 0);
