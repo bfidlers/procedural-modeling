@@ -22,6 +22,10 @@ void load_triangle(Graph& g) {
   g.add(v1);
   g.add(v2);
   g.add(v3);
+
+  g.add(e1);
+  g.add(e2);
+  g.add(e3);
 }
 
 void load_square(Graph& g) {
@@ -48,6 +52,11 @@ void load_square(Graph& g) {
   g.add(v2);
   g.add(v3);
   g.add(v4);
+
+  g.add(e1);
+  g.add(e2);
+  g.add(e3);
+  g.add(e4);
 }
 
 void load_graph(Graph& g) {
