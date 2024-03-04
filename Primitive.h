@@ -15,6 +15,7 @@ public:
   Primitive(Point p);
 
   void add(EdgeLabel edge);
+  void draw() const;
 };
 
 std::ostream& operator <<(std::ostream& os, const Primitive& p);

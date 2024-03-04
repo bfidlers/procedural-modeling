@@ -12,6 +12,7 @@ const int WINDOW_Y = 100;
 int window_w = 1000;
 int window_h = 1000;
 Graph g;
+std::vector<Primitive> primitives;
 
 void display();
 
@@ -30,7 +31,6 @@ int main(int argc, char ** argv){
   load_graph(g);
 
   // Split graph into primitives
-  std::vector<Primitive> primitives;
   g.split_primitives(primitives);
   for (const Primitive& p: primitives) {
     std::cout << p << std::endl;
@@ -58,7 +58,10 @@ void display(){
             0.0, 0.0, -1.0,
             0.0, 1.0, 0.0);
 
-  g.draw();
+//  g.draw();
+  for (const Primitive &p: primitives) {
+    p.draw();
+  }
 
   glFlush();
 }
