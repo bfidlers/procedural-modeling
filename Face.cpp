@@ -1,7 +1,7 @@
 #include "Face.h"
 
 Face::Face() {
-  id = "blank";
+  id = "0";
 }
 Face::Face(std::string s) {
   id = s;
