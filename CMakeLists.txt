@@ -15,6 +15,7 @@ find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 
 add_library(ProcMod_lib OBJECT
+    CameraTrackball.cpp
     Input.cpp
     Point.cpp
     Face.cpp
@@ -25,6 +26,8 @@ add_library(ProcMod_lib OBJECT
     Graph.cpp
     GraphBoundary.cpp
 )
+
+include_directories("../third-party/")
 
 target_include_directories(ProcMod_lib PUBLIC .)
 
