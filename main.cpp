@@ -49,6 +49,7 @@ void reshape(int w, int h) {
 }
 
 void mouseButton(int button, int state, int x, int y) {
+  // Scroll wheel not really working
   mouse_buttons[button] = state;
 
   // Update camera
@@ -68,6 +69,14 @@ void mouseMotion(int x, int y) {
   // Update camera
   if (mouse_buttons[GLUT_LEFT_BUTTON] == GLUT_DOWN)  camera.rotate(dxn, dyn);
   if (mouse_buttons[GLUT_RIGHT_BUTTON] == GLUT_DOWN) camera.pan(dxn, dyn, 0.0f);
+}
+
+void keyBoardInput(unsigned char key, int x, int y) {
+  if (key == '-') {
+    camera.zoom(1);
+  } else if (key == '+') {
+    camera.zoom(-1);
+  }
 }
 
 void timer(int v) {
@@ -103,6 +112,7 @@ void initWindow(int argc, char** argv) {
   glutMouseFunc(mouseButton);
   glutPassiveMotionFunc(mousePassiveMotion);
   glutMotionFunc(mouseMotion);
+  glutKeyboardFunc(keyBoardInput);
   glutTimerFunc(1000 / FPS, timer, 0);
 }
 
