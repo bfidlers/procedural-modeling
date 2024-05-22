@@ -13,9 +13,6 @@ public:
   Point origin;
   Point dest;
 
-  Edge(EdgeLabel label);
-  Edge(int angle);
-  Edge(int angle, std::string left, std::string right);
   Edge(Point p1, Point p2);
   Edge(Point p1, Point p2, std::string left, std::string right);
 

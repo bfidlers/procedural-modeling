@@ -15,8 +15,9 @@ public:
 
   Graph() = default;
 
-  void add(Vertex &vertex);
-  void add(Edge &edge);
+  void addVertex(float x, float y);
+  void addEdge(int v1, int v2);
+  void addEdge(int v1, int v2, std::string left, std::string right);
 
   void split_primitives(std::vector<Primitive>& primitives);
   void draw() const;

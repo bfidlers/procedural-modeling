@@ -1,15 +1,6 @@
 #include "Edge.h"
 #include <OpenGL/gl.h>
 
-Edge::Edge(EdgeLabel label) : label(label) {
-}
-Edge::Edge(int angle) {
-  label.angle = angle;
-}
-Edge::Edge(int angle, std::string left, std::string right) {
-  EdgeLabel l(angle, left, right);
-  label = l;
-}
 Edge::Edge(Point p1, Point p2) {
   label.angle = std::round(atan2(p2.y - p1.y, p2.x - p1.x) * 180 / M_PI);
   origin = p1;
