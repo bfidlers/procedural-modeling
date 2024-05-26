@@ -3,10 +3,11 @@
 #include <GLUT/glut.h>
 #include <Eigen/Dense>
 
+static const float HALFPI_F = static_cast<float>(0.5*M_PI);
 
-const float CameraTrackball::DEFAULT_EULER_YAW = 1.0f;
-const float CameraTrackball::DEFAULT_EULER_PITCH = 0.6f;
-  
+const float CameraTrackball::DEFAULT_EULER_YAW = 0;
+const float CameraTrackball::DEFAULT_EULER_PITCH = HALFPI_F - 0.001f;
+
 void CameraTrackball::init(Eigen::Vector3f center, float r0) {
   center_ = center;
   r0_ = r0;
@@ -33,8 +34,7 @@ void CameraTrackball::lookAt() {
 }
 
 void CameraTrackball::rotate(float right_input, float up_input) {
-  static const float HALFPI_F = static_cast<float>(0.5*M_PI);
-  
+
   yaw_ += HALFPI_F * right_input;
   pitch_ += HALFPI_F * up_input;
 
