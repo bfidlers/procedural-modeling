@@ -1,13 +1,13 @@
 #ifndef PROCEDURAL_MODELING_INPUT_H
 #define PROCEDURAL_MODELING_INPUT_H
 
-#include "Graph.h"
+#include "InputGraph.h"
 
 #include <iostream>
 #include <vector>
 
-void load_triangle(Graph& g);
-void load_square(Graph& g);
-void load_graph(Graph& g);
+void load_triangle(InputGraph& g);
+void load_square(InputGraph& g);
+void load_graph(InputGraph& g);
 
 #endif //PROCEDURAL_MODELING_INPUT_H

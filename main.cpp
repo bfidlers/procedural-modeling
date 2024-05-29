@@ -4,7 +4,7 @@
 #include <GLUT/glut.h>
 
 #include "Input.h"
-#include "Graph.h"
+#include "InputGraph.h"
 #include "Primitive.h"
 
 #include "CameraTrackball.h"
@@ -24,7 +24,7 @@ int mouse_buttons[GLUT_NUM_MOUSE_BUTTONS];
 // Camera
 CameraTrackball camera;
 
-Graph g;
+InputGraph g;
 std::vector<Primitive> primitives;
 
 void display(){

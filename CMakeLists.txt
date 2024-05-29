@@ -20,10 +20,10 @@ add_library(ProcMod_lib OBJECT
     Point.cpp
     Face.cpp
     EdgeLabel.cpp
-    Edge.cpp
+    InputEdge.cpp
     Primitive.cpp
-    Vertex.cpp
-    Graph.cpp
+    InputVertex.cpp
+    InputGraph.cpp
     GraphBoundary.cpp
 )
 

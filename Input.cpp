@@ -1,7 +1,7 @@
 #include "Input.h"
-#include "Graph.h"
+#include "InputGraph.h"
 
-void load_triangle(Graph& g) {
+void load_triangle(InputGraph& g) {
   g.addVertex(0,0);
   g.addVertex(1,0);
   g.addVertex(0,1);
@@ -11,7 +11,7 @@ void load_triangle(Graph& g) {
   g.addEdge(2,0);
 }
 
-void load_square(Graph& g) {
+void load_square(InputGraph& g) {
   g.addVertex(0,0);
   g.addVertex(1,0);
   g.addVertex(1,1);
@@ -23,7 +23,7 @@ void load_square(Graph& g) {
   g.addEdge(3,0);
 }
 
-void load_graph(Graph& g) {
+void load_graph(InputGraph& g) {
 //  load_triangle(g);
   load_square(g);
 }
