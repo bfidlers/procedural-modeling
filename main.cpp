@@ -32,10 +32,10 @@ void display(){
 
   camera.lookAt();
 
-  for (const Primitive &p: primitives) {
-    p.draw();
-  }
-//  g.draw();
+//  for (const Primitive &p: primitives) {
+//    p.draw();
+//  }
+  g.draw();
 
   glutSwapBuffers();
 }
@@ -72,10 +72,16 @@ void mouseMotion(int x, int y) {
 }
 
 void keyBoardInput(unsigned char key, int x, int y) {
-  if (key == '-') {
-    camera.zoom(1);
-  } else if (key == '+') {
-    camera.zoom(-1);
+  switch(key) {
+    case '-':
+      camera.zoom(1);
+      break;
+    case '+':
+      camera.zoom(-1);
+      break;
+    case 'n':
+      add_square(g, g.vertices.back().pos.x, g.vertices.back().pos.y, 1);
+      break;
   }
 }
 
