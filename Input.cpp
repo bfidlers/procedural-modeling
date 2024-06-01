@@ -15,13 +15,13 @@ void load_square(InputGraph& g) {
   add_square(g,0, 0, 1);
 }
 
-void add_square(InputGraph& g, float x, float y, float length) {
+void add_square(InputGraph& g, float x, float y, float length, float z) {
   const float base_x = x - length/2;
   const float base_y = y - length/2;
-  g.addVertex(base_x, base_y);
-  g.addVertex(base_x + length, base_y);
-  g.addVertex(base_x + length, base_y + length);
-  g.addVertex(base_x ,base_y + length);
+  g.addVertex(base_x, base_y, z);
+  g.addVertex(base_x + length, base_y, z);
+  g.addVertex(base_x + length, base_y + length, z);
+  g.addVertex(base_x ,base_y + length, z);
 
   const int nb_vertices = g.vertices.size() - 4;
 
@@ -31,7 +31,18 @@ void add_square(InputGraph& g, float x, float y, float length) {
   g.addEdge(nb_vertices + 3,nb_vertices);
 }
 
+void load_cube(InputGraph& g) {
+  add_square(g,0, 0, 1, -0.5);
+  add_square(g,0, 0, 1, 0.5);
+
+  g.addEdge(0, 4);
+  g.addEdge(1, 5);
+  g.addEdge(2, 6);
+  g.addEdge(3, 7);
+}
+
 void load_graph(InputGraph& g) {
 //  load_triangle(g);
   load_square(g);
+//  load_cube(g);
 }

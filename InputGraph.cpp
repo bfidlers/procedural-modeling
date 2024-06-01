@@ -1,7 +1,7 @@
 #include "InputGraph.h"
 
-void InputGraph::addVertex(float x, float y) {
-  InputVertex vertex(x, y);
+void InputGraph::addVertex(float x, float y, float z) {
+  InputVertex vertex(x, y, z);
   vertices.push_back(vertex);
 }
 

@@ -7,9 +7,10 @@ class Point {
 public:
   float x;
   float y;
+  float z;
 
   Point();
-  Point(float x, float y);
+  Point(float x, float y, float z = 0);
 
   bool operator==(const Point& other) const;
 };

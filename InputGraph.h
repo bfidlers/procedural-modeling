@@ -15,7 +15,7 @@ public:
 
   InputGraph() = default;
 
-  void addVertex(float x, float y);
+  void addVertex(float x, float y, float z = 0);
   void addEdge(int v1, int v2);
   void addEdge(int v1, int v2, std::string left, std::string right);
 

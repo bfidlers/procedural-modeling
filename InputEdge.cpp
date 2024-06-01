@@ -24,8 +24,8 @@ EdgeLabel InputEdge::get_primitive_edge(Point p) const {
 
 void InputEdge::draw() const {
   glBegin(GL_LINES);
-  glVertex3f(origin.x, origin.y, 0);
-  glVertex3f(dest.x, dest.y, 0);
+  glVertex3f(origin.x, origin.y, origin.z);
+  glVertex3f(dest.x, dest.y, dest.z);
   glEnd();
 }
 

@@ -14,7 +14,7 @@ public:
   std::vector<InputEdge> edges;
 
   InputVertex(Point p);
-  InputVertex(float x, float y);
+  InputVertex(float x, float y, float z = 0);
 
   void add(InputEdge &edge);
 

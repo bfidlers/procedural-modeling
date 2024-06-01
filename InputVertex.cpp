@@ -3,9 +3,10 @@
 InputVertex::InputVertex(Point p) {
   pos = p;
 }
-InputVertex::InputVertex(float x, float y) {
+InputVertex::InputVertex(float x, float y, float z) {
   pos.x = x;
   pos.y = y;
+  pos.z = z;
 }
 
 void InputVertex::add(InputEdge &edge) {
