@@ -131,8 +131,7 @@ int main(int argc, char ** argv){
     std::cout << p << std::endl;
   }
 
-  testLinearIneq();
-  loadTestGraph();
+  test();
 
   initWindow(argc, argv);
   glutMainLoop();

@@ -2,10 +2,19 @@
 #include <iostream>
 #include <glpk.h>
 
-#include "Graph.h"
-
-void loadTestGraph() {
+void test() {
+  testLinearIneq();
   Graph graph;
+  loadTestGraph(graph);
+  graph.unsetVertex(3);
+  std::unordered_set<int> unsetVertices;
+  graph.findUnsetVertices(unsetVertices);
+  for (int i: unsetVertices) {
+    std::cout << i << std::endl;
+  }
+}
+
+void loadTestGraph(Graph &graph) {
   graph.addVertex(1, Point(0, 0));
   graph.addVertex(2, Point(0, 1));
   graph.addVertex(3, Point(1, 1));

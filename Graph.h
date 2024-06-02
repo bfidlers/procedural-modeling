@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <string>
 
@@ -16,7 +17,9 @@ public:
 
   Vertex() {}
   Vertex(int id) : id(id)  {}
-  Vertex(int id, Point pos) : id(id) , pos(pos) {}
+  Vertex(int id, Point pos) : id(id) , pos(pos), hasPosition(true) {}
+
+  void unset();
 };
 
 class Edge {
@@ -40,8 +43,12 @@ class Graph {
 
   Graph() = default;
 
+  void addVertex(int id);
   void addVertex(int id, Point point);
   void addEdge(int from, int to, std::string id);
+
+  void unsetVertex(int id);
+  void findUnsetVertices(std::unordered_set<int> &unset);
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g);

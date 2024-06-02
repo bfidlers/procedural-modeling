@@ -1,7 +1,10 @@
 #ifndef PROCEDURAL_MODELING_LINEAR_EQUATION_SOLVER_H
 #define PROCEDURAL_MODELING_LINEAR_EQUATION_SOLVER_H
 
-void loadTestGraph();
+#include "Graph.h"
+
+void test();
+void loadTestGraph(Graph &g);
 void testLinearIneq();
 
 #endif //PROCEDURAL_MODELING_LINEAR_EQUATION_SOLVER_H

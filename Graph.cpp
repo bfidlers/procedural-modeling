@@ -1,11 +1,23 @@
 #include "Graph.h"
 
+void Vertex::unset() {
+  hasPosition = false;
+}
+
 Edge::Edge(std::string id, std::string inverse, Vertex v1, Vertex v2) {
   id = id;
   inverse = inverse;
   angle = std::round(atan2(v2.pos.y - v1.pos.y, v2.pos.x - v1.pos.x) * 180 / M_PI);
   from = v1.id;
   to = v2.id;
+}
+
+void Graph::addVertex(int id) {
+  if (vertices.find(id) != vertices.end()) {
+    return;
+  }
+  vertices[id] = Vertex(id);
+  adjList[id] = std::vector<Edge>();
 }
 
 void Graph::addVertex(int id, Point point) {
@@ -29,6 +41,18 @@ void Graph::addEdge(int from, int to, std::string id) {
   Edge e2(inverse, id, to, from, angle);
   adjList[from].push_back(e1);
   adjList[to].push_back(e2);
+}
+
+void Graph::unsetVertex(int id) {
+  vertices[id].unset();
+}
+
+void Graph::findUnsetVertices(std::unordered_set<int> &unset) {
+  for (const auto& pair : vertices) {
+    if (!pair.second.hasPosition) {
+      unset.insert(pair.second.id);
+    }
+  }
 }
 
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
