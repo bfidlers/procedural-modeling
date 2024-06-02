@@ -38,9 +38,6 @@ void solveUnsetVertices(Graph &graph) {
   for (int vertex : unsetVertices) {
     std::vector<Edge> edges;
     graph.getVertexEdges(vertex, edges);
-    for (const Edge& edge: edges){
-      std::cout << edge << std::endl;
-    }
 
     int start_col_nb = col_nb + 1;
     int start_row_nb = row_nb + 1;
@@ -63,24 +60,25 @@ void solveUnsetVertices(Graph &graph) {
     glp_set_col_bnds(lp, ++col_nb, GLP_FR, 0.0, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    // TODO should probably also be a for loop.
-    glp_add_rows(lp, 4);
-    Vertex v1 = graph.vertices[edges[0].to];
-    glp_set_row_bnds(lp, ++row_nb, GLP_FX, v1.pos.x, v1.pos.x);
-    glp_set_row_bnds(lp, ++row_nb, GLP_FX, v1.pos.y, v1.pos.y);
-    Vertex v2 = graph.vertices[edges[1].to];
-    glp_set_row_bnds(lp, ++row_nb, GLP_FX, v2.pos.x, v2.pos.x);
-    glp_set_row_bnds(lp, ++row_nb, GLP_FX, v2.pos.y, v2.pos.y);
+    // If 3D, this should be start_col_nb + 2
+    int col_l = start_col_nb + 1;
+    for (const Edge& edge: edges){
+      col_l++;
 
-    // TODO check if the minus can't be removed, and then hopefully the constraint that l can be less then 0 can be removed.
-    ia[++i] = start_row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
-    ia[++i] = start_row_nb, ja[i] = start_col_nb+2, ar[i] = -cosine(edges[0].angle);
-    ia[++i] = start_row_nb+1, ja[i] = start_col_nb+1, ar[i] = 1.0;
-    ia[++i] = start_row_nb+1, ja[i] = start_col_nb+2, ar[i] = -sine(edges[0].angle);
-    ia[++i] = start_row_nb+2, ja[i] = start_col_nb, ar[i] = 1.0;
-    ia[++i] = start_row_nb+2, ja[i] = start_col_nb+3, ar[i] = -cosine(edges[1].angle);
-    ia[++i] = start_row_nb+3, ja[i] = start_col_nb+1, ar[i] = 1.0;
-    ia[++i] = start_row_nb+3, ja[i] = start_col_nb+3, ar[i] = -sine(edges[1].angle);
+      std::cout << edge << std::endl;
+      Vertex v = graph.vertices[edge.to];
+
+      // TODO check if the minus can't be removed, and then hopefully the constraint that l can be less then 0 can be removed.
+
+      glp_add_rows(lp, 2);
+      glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.x, v.pos.x);
+      ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
+      ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
+
+      glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.y, v.pos.y);
+      ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
+      ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
+    }
   }
 
   glp_load_matrix(lp, i, ia, ja, ar);
