@@ -49,6 +49,7 @@ class Graph {
 
   void unsetVertex(int id);
   void findUnsetVertices(std::unordered_set<int> &unset);
+  void getVertexEdges(int vertex, std::vector<Edge> &edges);
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g);

@@ -31,6 +31,7 @@ add_library(ProcMod_lib OBJECT
     GraphBoundary.cpp
     LinearEquationSolver.cpp
     Graph.cpp
+    Util.h
 )
 
 include_directories("../third-party/")

@@ -56,6 +56,10 @@ void Graph::findUnsetVertices(std::unordered_set<int> &unset) {
   }
 }
 
+void Graph::getVertexEdges(int vertex, std::vector<Edge> &edges) {
+  edges = adjList[vertex];
+}
+
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
   os << "Edge: " << e.id << ", from: " << e.from << ", to: " << e.to << ", with angle: " << e.angle;
   return os;
