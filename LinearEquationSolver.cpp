@@ -11,10 +11,10 @@ void loadTestGraph() {
   graph.addVertex(3, Point(1, 1));
   graph.addVertex(4, Point(1, 0));
 
-  graph.addEdge(1, 2);
-  graph.addEdge(2, 3);
-  graph.addEdge(3, 4);
-  graph.addEdge(4, 1);
+  graph.addEdge(1, 2, "a");
+  graph.addEdge(2, 3, "b");
+  graph.addEdge(3, 4, "c");
+  graph.addEdge(4, 1, "d");
 
   std::cout << "Test graph:" << std::endl;
   std::cout << graph << std::endl;

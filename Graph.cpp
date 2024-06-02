@@ -1,6 +1,8 @@
 #include "Graph.h"
 
-Edge::Edge(Vertex v1, Vertex v2) {
+Edge::Edge(std::string id, std::string inverse, Vertex v1, Vertex v2) {
+  id = id;
+  inverse = inverse;
   angle = std::round(atan2(v2.pos.y - v1.pos.y, v2.pos.x - v1.pos.x) * 180 / M_PI);
   from = v1.id;
   to = v2.id;
@@ -14,15 +16,17 @@ void Graph::addVertex(int id, Point point) {
   adjList[id] = std::vector<Edge>();
 }
 
-void Graph::addEdge(int from, int to) {
+void Graph::addEdge(int from, int to, std::string id) {
   if (vertices.find(from) == vertices.end()) {
     return;
   }
   if (vertices.find(to) == vertices.end()) {
     return;
   }
-  Edge e1(vertices[from], vertices[to]);
-  Edge e2(vertices[to], vertices[from]);
+  std::string inverse = id += "'";
+  Edge e1(id, inverse, vertices[from], vertices[to]);
+  int angle = (e1.angle + 180) % 180;
+  Edge e2(inverse, id, to, from, angle);
   adjList[from].push_back(e1);
   adjList[to].push_back(e2);
 }
