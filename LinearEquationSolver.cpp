@@ -8,7 +8,7 @@ void test() {
   Graph graph;
   loadTestGraph(graph);
   graph.unsetVertex(2);
-  graph.unsetVertex(4);
+  graph.unsetVertex(3);
   solveUnsetVertices(graph);
 }
 
@@ -40,7 +40,6 @@ void solveUnsetVertices(Graph &graph) {
     graph.getVertexEdges(vertex, edges);
 
     int start_col_nb = col_nb + 1;
-    int start_row_nb = row_nb + 1;
 
     // glp_set_obj_coef sets the coefficients for the objective function
     // TODO This should probably be randomized.
@@ -68,16 +67,32 @@ void solveUnsetVertices(Graph &graph) {
       std::cout << edge << std::endl;
       Vertex v = graph.vertices[edge.to];
 
-      // TODO check if the minus can't be removed, and then hopefully the constraint that l can be less then 0 can be removed.
+      if (v.hasPosition) {
+        glp_add_rows(lp, 2);
+        glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.x, v.pos.x);
+        ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
 
-      glp_add_rows(lp, 2);
-      glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.x, v.pos.x);
-      ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
-      ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
+        glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.y, v.pos.y);
+        ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
 
-      glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.y, v.pos.y);
-      ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
-      ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
+        // If xVariable found, that vertex is already processed, and we can use it
+        // If not, we can just skip it and it the constraint will be added in the other direction
+      } else if(xVariables.find(v.id) != xVariables.end()) {
+        glp_add_rows(lp, 2);
+        glp_set_row_bnds(lp, ++row_nb, GLP_FX, 0, 0);
+        ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
+        ia[++i] = row_nb, ja[i] = xVariables[v.id], ar[i] = -1.0;
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
+
+        glp_set_row_bnds(lp, ++row_nb, GLP_FX, 0, 0);
+        ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
+        ia[++i] = row_nb, ja[i] = yVariables[v.id], ar[i] = -1.0;
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
+
+      }
+
     }
   }
 
