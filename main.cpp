@@ -132,6 +132,7 @@ int main(int argc, char ** argv){
   }
 
   testLinearIneq();
+  loadTestGraph();
 
   initWindow(argc, argv);
   glutMainLoop();

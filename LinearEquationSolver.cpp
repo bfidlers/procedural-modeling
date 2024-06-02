@@ -1,7 +1,24 @@
 #include "LinearEquationSolver.h"
 #include <iostream>
-
 #include <glpk.h>
+
+#include "Graph.h"
+
+void loadTestGraph() {
+  Graph graph;
+  graph.addVertex(1, Point(0, 0));
+  graph.addVertex(2, Point(0, 1));
+  graph.addVertex(3, Point(1, 1));
+  graph.addVertex(4, Point(1, 0));
+
+  graph.addEdge(1, 2);
+  graph.addEdge(2, 3);
+  graph.addEdge(3, 4);
+  graph.addEdge(4, 1);
+
+  std::cout << "Test graph:" << std::endl;
+  std::cout << graph << std::endl;
+}
 
 void testLinearIneq() {
   // Create a problem object
