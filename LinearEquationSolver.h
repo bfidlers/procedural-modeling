@@ -1,6 +1,8 @@
 #ifndef PROCEDURAL_MODELING_LINEAR_EQUATION_SOLVER_H
 #define PROCEDURAL_MODELING_LINEAR_EQUATION_SOLVER_H
 
+#include <glpk.h>
+
 #include "Graph.h"
 
 void test();
