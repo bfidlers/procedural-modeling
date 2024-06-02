@@ -53,10 +53,10 @@ void solveUnsetVertices(Graph &graph) {
     glp_set_col_bnds(lp, col_nb, GLP_LO, 0.0, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_FR, 0.0, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 1.0, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_FR, 0.0, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 1.0, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
     // If 3D, this should be start_col_nb + 2
@@ -71,11 +71,11 @@ void solveUnsetVertices(Graph &graph) {
         glp_add_rows(lp, 2);
         glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.x, v.pos.x);
         ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
-        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = cosine(edge.angle);
 
         glp_set_row_bnds(lp, ++row_nb, GLP_FX, v.pos.y, v.pos.y);
         ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
-        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = sine(edge.angle);
 
         // If xVariable found, that vertex is already processed, and we can use it
         // If not, we can just skip it and it the constraint will be added in the other direction
@@ -84,12 +84,12 @@ void solveUnsetVertices(Graph &graph) {
         glp_set_row_bnds(lp, ++row_nb, GLP_FX, 0, 0);
         ia[++i] = row_nb, ja[i] = start_col_nb, ar[i] = 1.0;
         ia[++i] = row_nb, ja[i] = xVariables[v.id], ar[i] = -1.0;
-        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -cosine(edge.angle);
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = cosine(edge.angle);
 
         glp_set_row_bnds(lp, ++row_nb, GLP_FX, 0, 0);
         ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
         ia[++i] = row_nb, ja[i] = yVariables[v.id], ar[i] = -1.0;
-        ia[++i] = row_nb, ja[i] = col_l, ar[i] = -sine(edge.angle);
+        ia[++i] = row_nb, ja[i] = col_l, ar[i] = sine(edge.angle);
 
       }
 
