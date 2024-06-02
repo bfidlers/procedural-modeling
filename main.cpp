@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "InputGraph.h"
 #include "Primitive.h"
-
+#include "LinearEquationSolver.h"
 #include "CameraTrackball.h"
 
 const int WINDOW_X = 100;
@@ -130,6 +130,8 @@ int main(int argc, char ** argv){
   for (const Primitive& p: primitives) {
     std::cout << p << std::endl;
   }
+
+  testLinearIneq();
 
   initWindow(argc, argv);
   glutMainLoop();
