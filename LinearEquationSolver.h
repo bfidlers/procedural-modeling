@@ -6,7 +6,8 @@
 #include "Graph.h"
 
 void test();
-void solveUnsetVertices(Graph &graph);
+void findGraphDrawing(Graph &graph);
+bool solveUnsetVertices(Graph &graph);
 void loadTestGraph(Graph &g);
 void testLinearIneq();
 

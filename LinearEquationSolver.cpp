@@ -7,12 +7,28 @@ void test() {
   testLinearIneq();
   Graph graph;
   loadTestGraph(graph);
-  graph.unsetVertex(2);
-  graph.unsetVertex(3);
-  solveUnsetVertices(graph);
+  findGraphDrawing(graph);
 }
 
-void solveUnsetVertices(Graph &graph) {
+void findGraphDrawing(Graph &graph) {
+  int i = 0;
+  int max = 10;
+  while (true) {
+    if (i > max) {
+      break;
+    }
+    bool result = solveUnsetVertices(graph);
+    if (result) {
+      std::cout << "Result found" << std::endl;
+      break;
+    }
+    std::cout << "No result found" << std::endl;
+    graph.loosen();
+    i++;
+  }
+}
+
+bool solveUnsetVertices(Graph &graph) {
   std::unordered_set<int> unsetVertices;
   graph.findUnsetVertices(unsetVertices);
 
@@ -46,17 +62,17 @@ void solveUnsetVertices(Graph &graph) {
 
     glp_add_cols(lp, 4);
     xVariables[vertex] = ++col_nb;
-    glp_set_col_bnds(lp, col_nb, GLP_LO, 0.0, 0.0);
+    glp_set_col_bnds(lp, col_nb, GLP_DB, -5.0, 5.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
     yVariables[vertex] = ++col_nb;
-    glp_set_col_bnds(lp, col_nb, GLP_LO, 0.0, 0.0);
+    glp_set_col_bnds(lp, col_nb, GLP_DB, -5.0, 5.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 1.0, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.1, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 1.0, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.1, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
     // If 3D, this should be start_col_nb + 2
@@ -90,9 +106,7 @@ void solveUnsetVertices(Graph &graph) {
         ia[++i] = row_nb, ja[i] = start_col_nb+1, ar[i] = 1.0;
         ia[++i] = row_nb, ja[i] = yVariables[v.id], ar[i] = -1.0;
         ia[++i] = row_nb, ja[i] = col_l, ar[i] = sine(edge.angle);
-
       }
-
     }
   }
 
@@ -106,9 +120,17 @@ void solveUnsetVertices(Graph &graph) {
     std::cout << "Solution vertex: " << vertex << ": x = " << x << ", y = " << y << std::endl;
   }
 
+  int result = glp_get_status(lp);
+
   // Clean up
   glp_delete_prob(lp);
   glp_free_env();
+
+  if (result == GLP_NOFEAS || result == GLP_INFEAS) {
+    return false;
+  }
+
+  return true;
 }
 
 void loadTestGraph(Graph &graph) {
@@ -116,11 +138,17 @@ void loadTestGraph(Graph &graph) {
   graph.addVertex(2, Point(0, 1));
   graph.addVertex(3, Point(1, 1));
   graph.addVertex(4, Point(1, 0));
+  graph.addVertex(5);
+  graph.addVertex(6);
 
   graph.addEdge(1, 2, "a");
   graph.addEdge(2, 3, "b");
-  graph.addEdge(3, 4, "c");
   graph.addEdge(4, 1, "d");
+
+//  graph.addEdge(3, 4, "c");
+  graph.addEdge(3, 5, "e", -90);
+  graph.addEdge(5, 6, "f", 0);
+  graph.addEdge(6, 4, "g", -90);
 
   std::cout << "Test graph:" << std::endl;
   std::cout << graph << std::endl;

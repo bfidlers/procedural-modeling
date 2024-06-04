@@ -1,6 +1,6 @@
 #include "Graph.h"
 
-#include <utility>
+#include "Util.h"
 
 void Vertex::unset() {
   hasPosition = false;
@@ -44,8 +44,44 @@ void Graph::addEdge(int from, int to, std::string id) {
   adjList[to].push_back(e2);
 }
 
+void Graph::addEdge(int from, int to, std::string id, int angle) {
+  if (vertices.find(from) == vertices.end()) {
+    return;
+  }
+  if (vertices.find(to) == vertices.end()) {
+    return;
+  }
+  std::string inverse = id + "'";
+  Edge e1(id, inverse, from, to, angle);
+  Edge e2(inverse, id, to, from, inverseAngle(angle));
+  adjList[from].push_back(e1);
+  adjList[to].push_back(e2);
+}
+
 void Graph::unsetVertex(int id) {
   vertices[id].unset();
+  markVertexNeighbours(id);
+}
+
+void Graph::loosen() {
+  if (verticesToLoosen.empty()) {
+    std::unordered_set<int> unset;
+    findUnsetVertices(unset);
+
+    if (unset.empty()) {
+      std::cout << "WARNING: all vertices are set." << std::endl;
+      return;
+    }
+
+    for (int v: unset) {
+      markVertexNeighbours(v);
+    }
+  }
+  if (!vertices[verticesToLoosen.front()].hasPosition) {
+    verticesToLoosen.pop();
+  }
+  unsetVertex(verticesToLoosen.front());
+  verticesToLoosen.pop();
 }
 
 void Graph::findUnsetVertices(std::unordered_set<int> &unset) {
@@ -58,6 +94,17 @@ void Graph::findUnsetVertices(std::unordered_set<int> &unset) {
 
 void Graph::getVertexEdges(int vertex, std::vector<Edge> &edges) {
   edges = adjList[vertex];
+}
+
+// Marks neighbours of vertex that they are next to be loosened.
+void Graph::markVertexNeighbours(int vertex) {
+  for (Edge &e: adjList[vertex]) {
+    if (e.to != vertex) {
+      verticesToLoosen.push(e.to);
+    } else {
+      verticesToLoosen.push(e.from);
+    }
+  }
 }
 
 std::ostream& operator <<(std::ostream& os, const Edge& e) {

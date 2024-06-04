@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <queue>
 #include <string>
 
 #include "Point.h"
@@ -38,6 +39,7 @@ std::ostream& operator <<(std::ostream& os, const Edge& e);
 
 class Graph {
   public:
+  std::queue<int> verticesToLoosen;
   std::unordered_map<int, Vertex> vertices;
   std::unordered_map<int, std::vector<Edge>> adjList;
 
@@ -46,10 +48,13 @@ class Graph {
   void addVertex(int id);
   void addVertex(int id, Point point);
   void addEdge(int from, int to, std::string id);
+  void addEdge(int from, int to, std::string id, int angle);
 
   void unsetVertex(int id);
+  void loosen();
   void findUnsetVertices(std::unordered_set<int> &unset);
   void getVertexEdges(int vertex, std::vector<Edge> &edges);
+  void markVertexNeighbours(int vertex);
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g);

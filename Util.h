@@ -3,19 +3,12 @@
 
 #include <iostream>
 
-double roundToDigits(double value, int digits) {
-  double scale = std::pow(10.0, digits);
-  return std::round(value * scale) / scale;
-}
+double roundToDigits(double value, int digits);
 
-double sine(int angle) {
-  double result = sin(angle * M_PI/180);
-  return roundToDigits(result, 8);
-}
+double sine(int angle);
 
-double cosine(int angle) {
-  double result = cos(angle * M_PI/180);
-  return roundToDigits(result, 8);
-}
+double cosine(int angle);
+
+int inverseAngle(int angle);
 
 #endif //PROCEDURAL_MODELING_UTIL_H
