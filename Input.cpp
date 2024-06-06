@@ -23,8 +23,8 @@ void load_square_alt(Graph& g) {
 
   g.addEdge(1, 2, "a");
   g.addEdge(2, 3, "b");
-  g.addEdge(3, 4, "c");
-  g.addEdge(4, 1, "d");
+  g.addEdge(4, 3, "a");
+  g.addEdge(1, 4, "b");
 }
 
 void add_square(InputGraph& g, float x, float y, float length, float z) {

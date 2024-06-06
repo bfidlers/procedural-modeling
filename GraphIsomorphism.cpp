@@ -43,8 +43,8 @@ void testFullIsomorphism() {
 
   g1.addEdge(5, 6, "a");
   g1.addEdge(6, 7, "b");
-  g1.addEdge(7, 8, "c");
-  g1.addEdge(8, 5, "d");
+  g1.addEdge(8, 7, "a");
+  g1.addEdge(5, 8, "b");
 
   std::cout << "graph 1:" << std::endl;
   std::cout << g1 << std::endl;
