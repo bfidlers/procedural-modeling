@@ -82,6 +82,34 @@ void Graph::addEdge(int from, int to, std::string id, int angle) {
   adjList[to].push_back(e2);
 }
 
+void Graph::removeVertex(int id) {
+  std::vector<Edge> &edges = adjList[id];
+  for (const Edge& e: edges) {
+    removeSingleEdge(e.to, e.from);
+  }
+
+  vertices.erase(id);
+  adjList.erase(id);
+}
+
+void Graph::removeSingleEdge(int from, int to) {
+  std::vector<Edge> &edges = adjList[from];
+  auto it = edges.begin();
+  while (it != edges.end()) {
+    Edge & e = *it;
+    if (e.to == to) {
+      edges.erase(it);
+      return;
+    }
+    it++;
+  }
+}
+
+void Graph::removeEdge(int from, int to) {
+  removeSingleEdge(from, to);
+  removeSingleEdge(to, from);
+}
+
 void Graph::unsetVertex(int id) {
   vertices[id].unset();
   markVertexNeighbours(id);
@@ -118,6 +146,12 @@ void Graph::findUnsetVertices(std::unordered_set<int> &unset) {
 
 void Graph::getVertexEdges(int vertex, std::vector<Edge> &edges) {
   edges = adjList[vertex];
+}
+
+void Graph::getVertexEdgesIds(int vertex, std::vector<std::string> &edges) {
+  for (const Edge &e: adjList[vertex]) {
+    edges.push_back(e.id);
+  }
 }
 
 // Marks neighbours of vertex that they are next to be loosened.

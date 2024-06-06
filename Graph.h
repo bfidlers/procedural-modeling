@@ -58,10 +58,15 @@ class Graph {
   void addEdge(int from, int to, std::string id);
   void addEdge(int from, int to, std::string id, int angle);
 
+  void removeVertex(int id);
+  void removeSingleEdge(int from, int to);
+  void removeEdge(int from, int to);
+
   void unsetVertex(int id);
   void loosen();
   void findUnsetVertices(std::unordered_set<int> &unset);
   void getVertexEdges(int vertex, std::vector<Edge> &edges);
+  void getVertexEdgesIds(int vertex, std::vector<std::string> &edges);
   void markVertexNeighbours(int vertex);
 
   std::string shorthand();
