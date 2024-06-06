@@ -14,6 +14,21 @@ Edge::Edge(std::string id, std::string inverse, Vertex v1, Vertex v2) {
   to = v2.id;
 }
 
+bool operator==(Edge const& e1, Edge const& e2) {
+  if (e1.id == e2.id) {
+    return true;
+  }
+  return false;
+}
+
+int Graph::vertexSize() const {
+  return vertices.size();
+}
+
+int Graph::edgeSize() const {
+  return adjList.size();
+}
+
 void Graph::addVertex(int id) {
   if (vertices.find(id) != vertices.end()) {
     return;
@@ -107,6 +122,11 @@ void Graph::markVertexNeighbours(int vertex) {
   }
 }
 
+std::ostream& operator <<(std::ostream& os, const Vertex& v) {
+  os << "Vertex " << v.id << ": " << v.pos;
+  return os;
+}
+
 std::ostream& operator <<(std::ostream& os, const Edge& e) {
   os << "Edge: " << e.id << ", from: " << e.from << ", to: " << e.to << ", with angle: " << e.angle;
   return os;
@@ -116,8 +136,7 @@ std::ostream& operator <<(std::ostream& os, const Graph& g) {
   os << "Graph containing the following:" << std::endl;
   for (const auto& pair : g.adjList) {
     const Vertex& v = g.vertices.at(pair.first);
-    os << "Vertex " << v.id << ": " << v.pos;
-    os << ", with edges: " << std::endl;
+    os << v << ", with edges: " << std::endl;
     for (const Edge& edge : pair.second) {
       os << edge << std::endl;
     }

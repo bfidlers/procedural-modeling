@@ -32,6 +32,7 @@ add_library(ProcMod_lib OBJECT
     LinearEquationSolver.cpp
     Graph.cpp
     Util.cpp
+    GraphIsomorphism.cpp
 )
 
 include_directories("../third-party/")

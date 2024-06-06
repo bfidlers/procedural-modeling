@@ -23,6 +23,8 @@ public:
   void unset();
 };
 
+std::ostream& operator <<(std::ostream& os, const Vertex& v);
+
 class Edge {
 public:
   std::string id;
@@ -36,6 +38,7 @@ public:
 };
 
 std::ostream& operator <<(std::ostream& os, const Edge& e);
+bool operator==(Edge const& e1, Edge const& e2);
 
 class Graph {
   public:
@@ -44,6 +47,9 @@ class Graph {
   std::unordered_map<int, std::vector<Edge>> adjList;
 
   Graph() = default;
+
+  int vertexSize() const;
+  int edgeSize() const;
 
   void addVertex(int id);
   void addVertex(int id, Point point);

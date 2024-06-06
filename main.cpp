@@ -6,8 +6,8 @@
 #include "Input.h"
 #include "InputGraph.h"
 #include "Primitive.h"
-#include "LinearEquationSolver.h"
 #include "CameraTrackball.h"
+#include "GraphIsomorphism.h"
 
 const int WINDOW_X = 100;
 const int WINDOW_Y = 100;
@@ -131,7 +131,7 @@ int main(int argc, char ** argv){
     std::cout << p << std::endl;
   }
 
-  test();
+  testIsomorphism();
 
   initWindow(argc, argv);
   glutMainLoop();
