@@ -41,6 +41,13 @@ bool applyRule(Rule &r, Graph &g) {
     std::cout << "WARNING: rule does not seem to be applicable." << std::endl;
     return false;
   }
+
+  deleteTransform(r, g, mapping);
+
+  return true;
+}
+
+void deleteTransform(Rule &r, Graph &g, std::unordered_map<int, int> &mapping) {
   for (auto const& [i1, i2]: mapping) {
     if (r.connections.contains(i1)) {
       std::vector<std::string> edgeIds;
@@ -59,5 +66,5 @@ bool applyRule(Rule &r, Graph &g) {
       g.removeVertex(i2);
     }
   }
-  return true;
+
 }
