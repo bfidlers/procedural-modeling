@@ -25,6 +25,7 @@ int mouse_buttons[GLUT_NUM_MOUSE_BUTTONS];
 CameraTrackball camera;
 
 InputGraph g;
+Graph outputGraph;
 std::vector<Primitive> primitives;
 
 void display(){
@@ -35,7 +36,8 @@ void display(){
 //  for (const Primitive &p: primitives) {
 //    p.draw();
 //  }
-  g.draw();
+//  g.draw();
+  outputGraph.draw();
 
   glutSwapBuffers();
 }
@@ -131,6 +133,7 @@ int main(int argc, char ** argv){
     std::cout << p << std::endl;
   }
 
+  load_square_alt(outputGraph);
   testIsomorphism();
 
   initWindow(argc, argv);

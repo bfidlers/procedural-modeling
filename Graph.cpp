@@ -1,6 +1,7 @@
 #include "Graph.h"
 
 #include "Util.h"
+#include <OpenGL/gl.h>
 
 void Vertex::unset() {
   hasPosition = false;
@@ -12,6 +13,13 @@ Edge::Edge(std::string id, std::string inverse, Vertex v1, Vertex v2) {
   angle = std::round(atan2(v2.pos.y - v1.pos.y, v2.pos.x - v1.pos.x) * 180 / M_PI);
   from = v1.id;
   to = v2.id;
+}
+
+bool Edge::isInverse() const {
+  if (id.ends_with('\'')) {
+    return true;
+  }
+  return false;
 }
 
 bool operator==(Edge const& e1, Edge const& e2) {
@@ -120,6 +128,25 @@ void Graph::markVertexNeighbours(int vertex) {
       verticesToLoosen.push(e.from);
     }
   }
+}
+
+void Graph::draw() {
+  for (const auto& pair : adjList) {
+    for (const Edge& edge : pair.second) {
+      if (edge.isInverse()) {
+        continue;
+      }
+      Vertex &first = vertices.at(edge.from);
+      Vertex &second = vertices.at(edge.to);
+
+      glBegin(GL_LINES);
+      glVertex3f(first.pos.x, first.pos.y, first.pos.z);
+      glVertex3f(second.pos.x, second.pos.y, second.pos.z);
+      glEnd();
+
+    }
+  }
+
 }
 
 std::ostream& operator <<(std::ostream& os, const Vertex& v) {

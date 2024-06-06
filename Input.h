@@ -2,12 +2,14 @@
 #define PROCEDURAL_MODELING_INPUT_H
 
 #include "InputGraph.h"
+#include "Graph.h"
 
 #include <iostream>
 #include <vector>
 
 void load_triangle(InputGraph& g);
 void load_square(InputGraph& g);
+void load_square_alt(Graph& g);
 void add_square(InputGraph& g, float x, float y, float size = 1, float z = 0);
 void load_cube(InputGraph& g);
 void load_graph(InputGraph& g);

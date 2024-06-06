@@ -15,6 +15,18 @@ void load_square(InputGraph& g) {
   add_square(g,0, 0, 1);
 }
 
+void load_square_alt(Graph& g) {
+  g.addVertex(1, Point(-0.5, -0.5));
+  g.addVertex(2, Point(-0.5, 0.5));
+  g.addVertex(3, Point(0.5, 0.5));
+  g.addVertex(4, Point(0.5, -0.5));
+
+  g.addEdge(1, 2, "a");
+  g.addEdge(2, 3, "b");
+  g.addEdge(3, 4, "c");
+  g.addEdge(4, 1, "d");
+}
+
 void add_square(InputGraph& g, float x, float y, float length, float z) {
   const float base_x = x - length/2;
   const float base_y = y - length/2;

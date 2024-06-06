@@ -1,4 +1,5 @@
 #include "GraphIsomorphism.h"
+#include "Input.h"
 
 void testIsomorphism() {
   testSimpleExample();
@@ -20,15 +21,7 @@ void testSimpleExample() {
   std::cout << "graph 1:" << std::endl;
   std::cout << g1 << std::endl;
 
-  g2.addVertex(1, Point(0, 0));
-  g2.addVertex(2, Point(0, 1));
-  g2.addVertex(3, Point(1, 1));
-  g2.addVertex(4, Point(1, 0));
-
-  g2.addEdge(1, 2, "a");
-  g2.addEdge(2, 3, "b");
-  g2.addEdge(3, 4, "c");
-  g2.addEdge(4, 1, "d");
+  load_square_alt(g2);
 
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;
@@ -56,15 +49,7 @@ void testFullIsomorphism() {
   std::cout << "graph 1:" << std::endl;
   std::cout << g1 << std::endl;
 
-  g2.addVertex(1, Point(0, 0));
-  g2.addVertex(2, Point(0, 1));
-  g2.addVertex(3, Point(1, 1));
-  g2.addVertex(4, Point(1, 0));
-
-  g2.addEdge(1, 2, "a");
-  g2.addEdge(2, 3, "b");
-  g2.addEdge(3, 4, "c");
-  g2.addEdge(4, 1, "d");
+  load_square_alt(g2);
 
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;
@@ -89,15 +74,7 @@ void testFalseIsomorphism() {
   std::cout << "graph 1:" << std::endl;
   std::cout << g1 << std::endl;
 
-  g2.addVertex(1, Point(0, 0));
-  g2.addVertex(2, Point(0, 1));
-  g2.addVertex(3, Point(1, 1));
-  g2.addVertex(4, Point(1, 0));
-
-  g2.addEdge(1, 2, "a");
-  g2.addEdge(2, 3, "b");
-  g2.addEdge(3, 4, "c");
-  g2.addEdge(4, 1, "d");
+  load_square_alt(g2);
 
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;

@@ -35,6 +35,8 @@ public:
 
   Edge(std::string id, std::string inverse, int from, int to, int angle) : id(id), inverse(inverse), from(from), to(to), angle(angle) {}
   Edge(std::string id, std::string inverse, Vertex v1, Vertex v2);
+
+  bool isInverse() const;
 };
 
 std::ostream& operator <<(std::ostream& os, const Edge& e);
@@ -61,6 +63,8 @@ class Graph {
   void findUnsetVertices(std::unordered_set<int> &unset);
   void getVertexEdges(int vertex, std::vector<Edge> &edges);
   void markVertexNeighbours(int vertex);
+
+  void draw();
 };
 
 std::ostream& operator <<(std::ostream& os, const Graph& g);
