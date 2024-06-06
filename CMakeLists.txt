@@ -34,6 +34,7 @@ add_library(ProcMod_lib OBJECT
     Util.cpp
     GraphIsomorphism.cpp
     Rule.cpp
+    GraphTransform.cpp
 )
 
 include_directories("../third-party/")

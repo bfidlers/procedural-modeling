@@ -153,6 +153,9 @@ std::string Graph::shorthand() {
   std::string output = "g: ";
   for (const auto& pair : adjList) {
     for (const Edge& edge : pair.second) {
+      if (edge.isInverse()) {
+        continue;
+      }
       output += std::to_string(edge.from);
       output += " -> ";
       output += std::to_string(edge.to);

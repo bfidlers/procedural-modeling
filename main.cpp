@@ -8,6 +8,7 @@
 #include "Primitive.h"
 #include "CameraTrackball.h"
 #include "GraphIsomorphism.h"
+#include "GraphTransform.h"
 
 const int WINDOW_X = 100;
 const int WINDOW_Y = 100;
@@ -134,7 +135,8 @@ int main(int argc, char ** argv){
   }
 
   load_square_alt(outputGraph);
-  testIsomorphism();
+//  testIsomorphism();
+  testGraphTransform();
 
   initWindow(argc, argv);
   glutMainLoop();
