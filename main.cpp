@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "InputGraph.h"
 #include "Primitive.h"
+#include "Rule.h"
 #include "CameraTrackball.h"
 #include "GraphIsomorphism.h"
 #include "GraphTransform.h"
@@ -27,6 +28,7 @@ CameraTrackball camera;
 
 InputGraph g;
 Graph outputGraph;
+Rule test_rule;
 std::vector<Primitive> primitives;
 
 void display(){
@@ -83,7 +85,8 @@ void keyBoardInput(unsigned char key, int x, int y) {
       camera.zoom(-1);
       break;
     case 'n':
-      add_square(g, g.vertices.back().pos.x, g.vertices.back().pos.y, 1);
+//      add_square(g, g.vertices.back().pos.x, g.vertices.back().pos.y, 1);
+      applyRule(test_rule, outputGraph);
       break;
   }
 }
@@ -135,8 +138,9 @@ int main(int argc, char ** argv){
   }
 
   load_square_alt(outputGraph);
+  load_square_rules1(test_rule);
 //  testIsomorphism();
-  testGraphTransform();
+//  testGraphTransform();
 
   initWindow(argc, argv);
   glutMainLoop();
