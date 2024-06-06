@@ -64,6 +64,8 @@ class Graph {
   void getVertexEdges(int vertex, std::vector<Edge> &edges);
   void markVertexNeighbours(int vertex);
 
+  std::string shorthand();
+
   void draw();
 };
 

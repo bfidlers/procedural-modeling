@@ -1,6 +1,7 @@
 #include "Graph.h"
 
 #include "Util.h"
+#include <string>
 #include <OpenGL/gl.h>
 
 void Vertex::unset() {
@@ -146,8 +147,23 @@ void Graph::draw() {
 
     }
   }
-
 }
+
+std::string Graph::shorthand() {
+  std::string output = "g: ";
+  for (const auto& pair : adjList) {
+    for (const Edge& edge : pair.second) {
+      output += std::to_string(edge.from);
+      output += " -> ";
+      output += std::to_string(edge.to);
+      output += " ";
+      output += std::to_string(edge.angle);
+      output += "°, ";
+    }
+  }
+  return output;
+}
+
 
 std::ostream& operator <<(std::ostream& os, const Vertex& v) {
   os << "Vertex " << v.id << ": " << v.pos;
@@ -170,5 +186,4 @@ std::ostream& operator <<(std::ostream& os, const Graph& g) {
     std::cout << std::endl;
   }
   return os;
-
 }
