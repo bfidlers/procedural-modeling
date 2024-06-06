@@ -33,7 +33,8 @@ void testSimpleExample() {
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;
 
-  isSubgraphIsomorphic(g1, g2);
+  std::unordered_map<int, int> mapping;
+  isSubgraphIsomorphic(g1, g2, mapping);
 }
 
 void testFullIsomorphism() {
@@ -68,7 +69,8 @@ void testFullIsomorphism() {
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;
 
-  isSubgraphIsomorphic(g1, g2);
+  std::unordered_map<int, int> mapping;
+  isSubgraphIsomorphic(g1, g2, mapping);
 }
 
 void testFalseIsomorphism() {
@@ -100,10 +102,11 @@ void testFalseIsomorphism() {
   std::cout << "graph 2:" << std::endl;
   std::cout << g2 << std::endl;
 
-  isSubgraphIsomorphic(g1, g2);
+  std::unordered_map<int, int> mapping;
+  isSubgraphIsomorphic(g1, g2, mapping);
 }
 
-bool isSubgraphIsomorphic(Graph &g1, Graph &g2) {
+bool isSubgraphIsomorphic(Graph &g1, Graph &g2, std::unordered_map<int, int> &mapping) {
   if (g1.vertexSize() > g2.vertexSize()) {
     std::cout << "WARNING: First graph has more edges than the second." << std::endl;
     return false;
@@ -114,7 +117,6 @@ bool isSubgraphIsomorphic(Graph &g1, Graph &g2) {
   }
 
   auto it = g1.vertices.begin();
-  std::unordered_map<int, int> mapping;
   std::unordered_map<int, int> nextPoints;
   bool firstMatch = findFirstMatch(it->first, g1, g2, mapping, nextPoints);
 
