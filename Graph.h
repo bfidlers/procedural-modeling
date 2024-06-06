@@ -57,6 +57,7 @@ class Graph {
   void addVertex(int id, Point point);
   void addEdge(int from, int to, std::string id);
   void addEdge(int from, int to, std::string id, int angle);
+  void addSingleEdge(int from, int to, std::string id, int angle);
 
   void removeVertex(int id);
   void removeSingleEdge(int from, int to);

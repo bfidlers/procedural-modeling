@@ -11,4 +11,6 @@ double cosine(int angle);
 
 int inverseAngle(int angle);
 
+std::string inverseEdgeLabelId(const std::string& id);
+
 #endif //PROCEDURAL_MODELING_UTIL_H

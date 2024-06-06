@@ -25,3 +25,11 @@ int inverseAngle(int angle) {
   }
 }
 
+std::string inverseEdgeLabelId(const std::string& id) {
+  if (id.ends_with('\'')) {
+    return id.substr(0, id.size() -1);
+  } else {
+    return id + "'";
+  }
+}
+

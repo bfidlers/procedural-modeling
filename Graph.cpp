@@ -61,6 +61,8 @@ void Graph::addEdge(int from, int to, std::string id) {
   if (vertices.find(to) == vertices.end()) {
     return;
   }
+  // TODO this inverse seems broken, check, if we need it and remove otherwise
+  // problem is this id is not really the id of the edge, but the id of the edge label...
   std::string inverse = id + "'";
   Edge e1(id, inverse, vertices[from], vertices[to]);
   Edge e2(inverse, id, vertices[to], vertices[from]);
@@ -80,6 +82,18 @@ void Graph::addEdge(int from, int to, std::string id, int angle) {
   Edge e2(inverse, id, to, from, inverseAngle(angle));
   adjList[from].push_back(e1);
   adjList[to].push_back(e2);
+}
+
+void Graph::addSingleEdge(int from, int to, std::string id, int angle) {
+  if (vertices.find(from) == vertices.end()) {
+    return;
+  }
+  if (vertices.find(to) == vertices.end()) {
+    return;
+  }
+  std::string inverse = inverseEdgeLabelId(id);
+  Edge e1(id, inverse, from, to, angle);
+  adjList[from].push_back(e1);
 }
 
 void Graph::removeVertex(int id) {

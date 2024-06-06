@@ -31,7 +31,6 @@ void testGraphTransform() {
 
   bool result = applyRule(r, g);
 
-  std::cout << g << std::endl;
 }
 
 bool applyRule(Rule &r, Graph &g) {
@@ -43,6 +42,10 @@ bool applyRule(Rule &r, Graph &g) {
   }
 
   deleteTransform(r, g, mapping);
+  std::cout << g << std::endl;
+
+  additionTransform(r, g, mapping);
+  std::cout << g << std::endl;
 
   return true;
 }
@@ -66,5 +69,36 @@ void deleteTransform(Rule &r, Graph &g, std::unordered_map<int, int> &mapping) {
       g.removeVertex(i2);
     }
   }
+}
 
+void additionTransform(Rule &r, Graph &g, std::unordered_map<int, int> &mapping) {
+  // This is a map from rhs vertex ids to ids in the graph
+  std::unordered_map<int, int> newIds;
+
+  // First add mapping for connection points.
+  for (auto const& [left, right]: r.connections) {
+    newIds[right] = mapping.at(left);
+  }
+  // Generate new ids.
+  for (auto const& [i, v]: r.rhs.vertices) {
+    if (!newIds.contains(i)) {
+      newIds[i] = rand();
+    }
+  }
+
+  // Add new vertices
+  for (auto const& [i, v]: r.rhs.vertices) {
+    // Some vertices are already in the graph, but if you add vertices with the same id,
+    // they are just skipped.
+    std::cout << "INFO: adding vertex: " << newIds.at(i) << std::endl;
+    g.addVertex(newIds.at(i));
+  }
+
+  // Add new edges
+  for (auto const& [i, v]: r.rhs.vertices) {
+    for (const Edge &e: r.rhs.adjList[i]) {
+      std::cout << "INFO: adding new edge: " << e << std::endl;
+      g.addSingleEdge(newIds.at(e.from), newIds.at(e.to), e.id, e.angle);
+    }
+  }
 }
