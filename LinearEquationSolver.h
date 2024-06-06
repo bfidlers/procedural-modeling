@@ -7,7 +7,8 @@
 
 void test();
 void findGraphDrawing(Graph &graph);
-bool solveUnsetVertices(Graph &graph);
+void setCoordinates(Graph &graph, std::unordered_map<int, Point> &points);
+bool solveUnsetVertices(Graph &graph, std::unordered_map<int, Point> &points);
 void loadTestGraph(Graph &g);
 void testLinearIneq();
 

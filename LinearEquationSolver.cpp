@@ -17,9 +17,11 @@ void findGraphDrawing(Graph &graph) {
     if (i > max) {
       break;
     }
-    bool result = solveUnsetVertices(graph);
+    std::unordered_map<int, Point> points;
+    bool result = solveUnsetVertices(graph, points);
     if (result) {
       std::cout << "Result found" << std::endl;
+      setCoordinates(graph, points);
       break;
     }
     std::cout << "No result found" << std::endl;
@@ -28,7 +30,13 @@ void findGraphDrawing(Graph &graph) {
   }
 }
 
-bool solveUnsetVertices(Graph &graph) {
+void setCoordinates(Graph &graph, std::unordered_map<int, Point> &points) {
+  for (auto const& [vertex, point]: points) {
+    graph.vertices[vertex].setCoordinates(point);
+  }
+}
+
+bool solveUnsetVertices(Graph &graph, std::unordered_map<int, Point> &points) {
   std::unordered_set<int> unsetVertices;
   graph.findUnsetVertices(unsetVertices);
 
@@ -117,6 +125,7 @@ bool solveUnsetVertices(Graph &graph) {
   for (int vertex : unsetVertices) {
     double x = glp_get_col_prim(lp, xVariables[vertex]);
     double y = glp_get_col_prim(lp, yVariables[vertex]);
+    points[vertex] = Point(x, y);
     std::cout << "Solution vertex: " << vertex << ": x = " << x << ", y = " << y << std::endl;
   }
 

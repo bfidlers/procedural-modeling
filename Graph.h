@@ -21,6 +21,7 @@ public:
   Vertex(int id, Point pos) : id(id) , pos(pos), hasPosition(true) {}
 
   void unset();
+  void setCoordinates(Point pos);
 };
 
 std::ostream& operator <<(std::ostream& os, const Vertex& v);

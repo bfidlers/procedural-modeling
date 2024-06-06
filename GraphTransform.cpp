@@ -2,6 +2,7 @@
 
 #include "Input.h"
 #include "GraphIsomorphism.h"
+#include "LinearEquationSolver.h"
 
 void testGraphTransform() {
   Graph lhs;
@@ -30,7 +31,8 @@ void testGraphTransform() {
   std::cout << g << std::endl;
 
   bool result = applyRule(r, g);
-
+  findGraphDrawing(g);
+  std::cout << g << std::endl;
 }
 
 bool applyRule(Rule &r, Graph &g) {

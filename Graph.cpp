@@ -8,6 +8,13 @@ void Vertex::unset() {
   hasPosition = false;
 }
 
+void Vertex::setCoordinates(Point newPos) {
+  hasPosition = true;
+  pos.x = newPos.x;
+  pos.y = newPos.y;
+  pos.z = newPos.z;
+}
+
 Edge::Edge(std::string id, std::string inverse, Vertex v1, Vertex v2) {
   this->id = std::move(id);
   this->inverse = std::move(inverse);
