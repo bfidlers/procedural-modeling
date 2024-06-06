@@ -5,34 +5,15 @@
 #include "LinearEquationSolver.h"
 
 void testGraphTransform() {
-  Graph lhs;
-  lhs.addVertex(0);
-  lhs.addVertex(1);
-  lhs.addEdge(0, 1, "a", 90);
-
-  Graph rhs;
-  rhs.addVertex(0);
-  rhs.addVertex(1);
-  rhs.addVertex(2);
-  rhs.addVertex(3);
-  rhs.addEdge(0, 1, "a", 90);
-  rhs.addEdge(1, 2, "b", 0);
-  rhs.addEdge(2, 3, "a", 90);
-
-  std::unordered_map<int, int> mapping;
-  mapping[0] = 0;
-  mapping[1] = 3;
-
-  Rule r = Rule(lhs, rhs, mapping);
+  Rule r;
+  load_square_rules1(r);
   std::cout << r << std::endl;
 
   Graph g;
   load_square_alt(g);
   std::cout << g << std::endl;
 
-  bool result = applyRule(r, g);
-  findGraphDrawing(g);
-  std::cout << g << std::endl;
+  applyRule(r, g);
 }
 
 bool applyRule(Rule &r, Graph &g) {
@@ -47,6 +28,9 @@ bool applyRule(Rule &r, Graph &g) {
   std::cout << g << std::endl;
 
   additionTransform(r, g, mapping);
+  std::cout << g << std::endl;
+
+  findGraphDrawing(g);
   std::cout << g << std::endl;
 
   return true;

@@ -204,7 +204,7 @@ void Graph::draw() {
   }
 }
 
-std::string Graph::shorthand() {
+std::string Graph::shorthand() const {
   std::string output = "g: ";
   for (const auto& pair : adjList) {
     for (const Edge& edge : pair.second) {

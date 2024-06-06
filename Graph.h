@@ -71,7 +71,7 @@ class Graph {
   void getVertexEdgesIds(int vertex, std::vector<std::string> &edges);
   void markVertexNeighbours(int vertex);
 
-  std::string shorthand();
+  std::string shorthand() const;
 
   void draw();
 };
