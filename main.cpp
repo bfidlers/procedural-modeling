@@ -28,7 +28,7 @@ CameraTrackball camera;
 
 InputGraph g;
 Graph outputGraph;
-Rule test_rule;
+std::vector<Rule> testRules;
 std::vector<Primitive> primitives;
 
 void display(){
@@ -86,7 +86,7 @@ void keyBoardInput(unsigned char key, int x, int y) {
       break;
     case 'n':
 //      add_square(g, g.vertices.back().pos.x, g.vertices.back().pos.y, 1);
-      applyRule(test_rule, outputGraph);
+      applyRandomRule(testRules, outputGraph);
       break;
   }
 }
@@ -138,7 +138,7 @@ int main(int argc, char ** argv){
   }
 
   load_square_alt(outputGraph);
-  load_square_rules1(test_rule);
+  load_square_rules(testRules);
 //  testIsomorphism();
 //  testGraphTransform();
 

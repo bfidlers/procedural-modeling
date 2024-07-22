@@ -12,8 +12,9 @@ void test() {
 
 void findGraphDrawing(Graph &graph) {
   int i = 0;
-  int max = 10;
+  int max = 20;
   while (true) {
+    // TODO do something if this does not work.
     if (i > max) {
       break;
     }
@@ -77,10 +78,10 @@ bool solveUnsetVertices(Graph &graph, std::unordered_map<int, Point> &points) {
     glp_set_col_bnds(lp, col_nb, GLP_DB, -5.0, 5.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.1, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.5, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
-    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.1, 0.0);
+    glp_set_col_bnds(lp, ++col_nb, GLP_LO, 0.5, 0.0);
     glp_set_obj_coef(lp, col_nb, 1.0);
 
     // If 3D, this should be start_col_nb + 2

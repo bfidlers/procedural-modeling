@@ -14,7 +14,12 @@ public:
   void init(Graph &lhs, Graph &rhs, std::unordered_map<int, int> &connections);
 };
 
-void load_square_rules1(Rule &r);
+void load_square_rules(std::vector<Rule> &rules);
+void load_square_rule1(Rule &r);
+void load_square_rule2(Rule &r);
+void load_square_rule3(Rule &r);
+void load_square_rule4(Rule &r);
+void load_square_rule5(Rule &r);
 
 std::ostream& operator <<(std::ostream& os, const Rule& r);
 

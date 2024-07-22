@@ -84,6 +84,9 @@ void testFalseIsomorphism() {
 }
 
 bool isSubgraphIsomorphic(Graph &g1, Graph &g2, std::unordered_map<int, int> &mapping) {
+  if (g1.vertexSize() == 0) {
+    return true;
+  }
   if (g1.vertexSize() > g2.vertexSize()) {
     std::cout << "WARNING: First graph has more edges than the second." << std::endl;
     return false;

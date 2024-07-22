@@ -4,9 +4,11 @@
 #include "GraphIsomorphism.h"
 #include "LinearEquationSolver.h"
 
+#include <random>
+
 void testGraphTransform() {
   Rule r;
-  load_square_rules1(r);
+  load_square_rule1(r);
   std::cout << r << std::endl;
 
   Graph g;
@@ -16,20 +18,34 @@ void testGraphTransform() {
   applyRule(r, g);
 }
 
+bool applyRandomRule(std::vector<Rule> &rules, Graph &g) {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> dist(0, rules.size() - 1);
+  auto it = std::next(rules.begin(), dist(gen));
+  return applyRule(*it, g);
+}
+
 bool applyRule(Rule &r, Graph &g) {
   std::unordered_map<int, int> mapping;
+  std::cout << "INFO: looking for a match" << std::endl;
   bool isoMorphic = isSubgraphIsomorphic(r.lhs, g, mapping);
   if (!isoMorphic) {
     std::cout << "WARNING: rule does not seem to be applicable." << std::endl;
     return false;
   }
 
+  std::cout << "INFO: deleting match" << std::endl;
+
   deleteTransform(r, g, mapping);
   std::cout << g << std::endl;
+
+  std::cout << "INFO: gluing in match" << std::endl;
 
   additionTransform(r, g, mapping);
   std::cout << g << std::endl;
 
+  std::cout << "INFO: finding graph drawing" << std::endl;
   findGraphDrawing(g);
   std::cout << g << std::endl;
 
