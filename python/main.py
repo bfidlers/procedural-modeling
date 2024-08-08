@@ -15,6 +15,8 @@ label = pyglet.text.Label('Hello, world',
 def on_key_press(symbol, modifiers):
     if symbol == key.N:
         print('The key "N" was pressed')
+    elif symbol == key.S:
+        save_image()
     else:
         print('Another key, with keycode {} was pressed'.format(symbol))
 
@@ -23,6 +25,12 @@ def on_key_press(symbol, modifiers):
 def on_draw():
     window.clear()
     label.draw()
+
+
+def save_image():
+    print('Saving image')
+    buffer = pyglet.image.get_buffer_manager().get_color_buffer()
+    buffer.save('Output/test.png')
 
 
 pyglet.app.run()

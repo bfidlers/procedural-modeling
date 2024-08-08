@@ -37,3 +37,6 @@ cpp/cmake-build-debug
 
 # Miscellaneous
 *.idea
+
+# Output
+python/output
