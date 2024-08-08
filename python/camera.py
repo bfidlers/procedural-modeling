@@ -16,7 +16,7 @@ class Camera:
         self.r = self.r0
         self.yaw = DEFAULT_EULER_YAW
         self.pitch = DEFAULT_EULER_PITCH
-        self.zoom = 0
+        self.zoom_value = 0
 
         self.front = np.empty(3, dtype=float)
         self.left = np.empty(3, dtype=float)
@@ -73,7 +73,7 @@ class Camera:
         self.look_at()
 
     def zoom(self, zoom_input):
-        self.zoom += zoom_input
-        self.r = self.r0 * 1.1 ** self.zoom
+        self.zoom_value += zoom_input
+        self.r = self.r0 * 1.1 ** self.zoom_value
         self.look_at()
 
