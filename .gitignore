@@ -31,9 +31,9 @@
 *.out
 *.app
 
-# Build directories
-/build
-/cmake-build-debug
+# Cpp Build directories
+cpp/build
+cpp/cmake-build-debug
 
 # Miscellaneous
 *.idea
