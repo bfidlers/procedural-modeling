@@ -1,4 +1,0 @@
-/Users/benfidlers/Documents/personal/thesis/code/procedural-modeling/cpp/cmake-build-debug/CMakeFiles/ProcMod_lib.dir
-/Users/benfidlers/Documents/personal/thesis/code/procedural-modeling/cpp/cmake-build-debug/CMakeFiles/ProceduralModeling.dir
-/Users/benfidlers/Documents/personal/thesis/code/procedural-modeling/cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/benfidlers/Documents/personal/thesis/code/procedural-modeling/cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
