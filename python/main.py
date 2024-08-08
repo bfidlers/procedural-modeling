@@ -1,4 +1,5 @@
 import pyglet
+import datetime
 from pyglet.window import key
 
 
@@ -29,8 +30,9 @@ def on_draw():
 
 def save_image():
     print('Saving image')
+    current_time = datetime.datetime.now().isoformat(timespec="seconds")
     buffer = pyglet.image.get_buffer_manager().get_color_buffer()
-    buffer.save('Output/test.png')
+    buffer.save('Output/output_{}.png'.format(current_time))
 
 
 pyglet.app.run()
