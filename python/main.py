@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.window import key
 
 
 window = pyglet.window.Window()
@@ -12,9 +13,10 @@ label = pyglet.text.Label('Hello, world',
 
 @window.event
 def on_key_press(symbol, modifiers):
-    print('A key was pressed')
-    print(symbol)
-    print(modifiers)
+    if symbol == key.N:
+        print('The key "N" was pressed')
+    else:
+        print('Another key, with keycode {} was pressed'.format(symbol))
 
 
 @window.event
