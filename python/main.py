@@ -1,15 +1,15 @@
 import pyglet
 import datetime
 from pyglet.window import key
+from pyglet.gl import *
 
 
 window = pyglet.window.Window()
 
-label = pyglet.text.Label('Hello, world',
-                          font_name='Times New Roman',
-                          font_size=36,
-                          x=window.width//2, y=window.height//2,
-                          anchor_x='center', anchor_y='center')
+vertices = [200, 200, 0,
+            100, 200, 0,
+            100, 100, 0,
+            200, 100, 0]
 
 
 @window.event
@@ -25,7 +25,9 @@ def on_key_press(symbol, modifiers):
 @window.event
 def on_draw():
     window.clear()
-    label.draw()
+    pyglet.graphics.draw(len(vertices) // 3, GL_POLYGON,
+                         ('v3f', vertices)
+                         )
 
 
 def save_image():
