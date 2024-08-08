@@ -37,7 +37,7 @@ add_library(ProcMod_lib OBJECT
     GraphTransform.cpp
 )
 
-include_directories("../third-party/")
+include_directories("../../third-party/")
 
 target_include_directories(ProcMod_lib PUBLIC .)
 
