@@ -5,6 +5,7 @@ from pyglet.gl import *
 import numpy as np
 
 from camera import Camera
+from input import *
 
 window_w = 1000
 window_h = 1000
@@ -16,11 +17,7 @@ FAR_CLIP = 100.0
 window = pyglet.window.Window(width=window_w, height=window_h, caption="Procedural Modelling Demo", resizable=True)
 camera = Camera(np.array([0.0, 0.0, 0.0]), 10.0)
 
-
-vertices = [-1, -1, 0,
-            -1, 1, 0,
-            1, 1, 0,
-            1, -1, 0]
+g = load_graph()
 
 
 @window.event
@@ -49,9 +46,7 @@ def on_key_press(symbol, modifiers):
 def on_draw():
     window.clear()
     camera.look_at()
-    pyglet.graphics.draw(len(vertices) // 3, GL_POLYGON,
-                         ('v3f', vertices)
-                         )
+    g.draw()
 
 
 @window.event
