@@ -29,6 +29,18 @@ def on_key_press(symbol, modifiers):
         print('The key "N" was pressed')
     elif symbol == key.S:
         save_image()
+    elif symbol == key.PLUS:
+        camera.zoom(-1)
+    elif symbol == key.MINUS:
+        camera.zoom(1)
+    elif symbol == key.UP:
+        camera.pan(0, 0.1, 0.0)
+    elif symbol == key.DOWN:
+        camera.pan(0, -0.1, 0.0)
+    elif symbol == key.RIGHT:
+        camera.pan(0.1, 0, 0.0)
+    elif symbol == key.LEFT:
+        camera.pan(-0.1, 0, 0.0)
     else:
         print('Another key, with keycode {} was pressed'.format(symbol))
 
