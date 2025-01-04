@@ -1,5 +1,6 @@
 from pyglet.gl import *
 import networkx as nx
+import math
 
 
 class Graph:
@@ -18,7 +19,11 @@ class Graph:
         self.graph.add_node(id, pos=point)
 
     def add_edge(self, label, tail, head):
-        self.graph.add_edge(tail, head, label=label, angle=0)
+        pos1 = self.graph.nodes[tail]["pos"]
+        pos2 = self.graph.nodes[head]["pos"]
+        angle = round(math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / math.pi)
+        # TODO right now we only use positive angles, because the edges don't have a direction
+        self.graph.add_edge(tail, head, label=label, angle=abs(angle % 180))
 
     def remove_vertex(self, id):
         self.graph.remove_node(id)
