@@ -18,13 +18,35 @@ class Graph:
             return
         self.graph.add_node(id, pos=point)
 
-    def add_edge(self, label, tail, head, angle = None):
-        pos1 = self.graph.nodes[tail]["pos"]
-        pos2 = self.graph.nodes[head]["pos"]
+    def add_vertices(self, vertices):
+        if len(vertices) == 0:
+            return
+        if type(vertices[0]) is tuple:
+            self.graph.add_nodes_from(vertices)
+        else:
+            self.graph.add_nodes_from(vertices, pos=None)
+
+    def add_edge(self, label, tail, head, angle=None):
         if angle is None:
+            pos1 = self.graph.nodes[tail]["pos"]
+            pos2 = self.graph.nodes[head]["pos"]
             angle = round(math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / math.pi)
         # TODO right now we only use positive angles, because the edges don't have a direction
         self.graph.add_edge(tail, head, label=label, angle=abs(angle % 180))
+
+    def add_edges(self, edges):
+        # Edges needs to contain tuples with form (label, tail, head)
+        parsed_edges = []
+        for (label, tail, head) in edges:
+            pos1 = self.graph.nodes[tail]["pos"]
+            pos2 = self.graph.nodes[head]["pos"]
+            angle = round(math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / math.pi)
+            angle2 = abs(angle % 180)
+            parsed_edges.append((tail, head, {'label': label, 'angle': angle2}))
+        self.graph.add_edges_from(parsed_edges)
+
+    def add_edges_without_parsing(self, edges):
+        self.graph.add_edges_from(edges)
 
     def remove_vertex(self, id):
         self.graph.remove_node(id)

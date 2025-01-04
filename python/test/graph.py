@@ -54,6 +54,27 @@ def print_graph_shorthand():
     print(g.shorthand())
 
 
+def example_graph_short_initialisation():
+    g = Graph()
+    vertices = [
+        (0, {'pos': Point(-1, -1)}),
+        (1, {'pos': Point(-1, 1)}),
+        (2, {'pos': Point(1, 1)}),
+        (3, {'pos': Point(1, -1)}),
+    ]
+    g.add_vertices(vertices)
+
+    edges = [
+        ("a", 0, 1),
+        ("a", 3, 2),
+        ("b", 1, 2),
+        ("b", 0, 3),
+    ]
+    g.add_edges(edges)
+    print(g)
+
+
 # some_basic_graph_access()
 # print_graph()
-print_graph_shorthand()
+# print_graph_shorthand()
+example_graph_short_initialisation()
