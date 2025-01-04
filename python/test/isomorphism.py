@@ -148,9 +148,43 @@ def multiple_edges_with_same_label():
     # Okay nice this works as we want it to
 
 
+def poc_directed_graph():
+    # Proof of concept of directed graph where labels are different depending on direction
+    G1 = nx.DiGraph()
+    G1.add_nodes_from([1, 2, 3, 4])
+    G1.add_edges_from([
+        (1, 2, {"label": "+a"}),
+        (2, 1, {"label": "-a"}),
+        (4, 3, {"label": "+a"}),
+        (3, 4, {"label": "-a"}),
+        (2, 3, {"label": "+b"}),
+        (3, 2, {"label": "-b"}),
+        (1, 4, {"label": "+b"}),
+        (4, 1, {"label": "-b"})
+    ])
+
+    # Would be nice if the inverse were not needed, but without this is no complete isomorphism I guess
+    G2 = nx.DiGraph()
+    G2.add_nodes_from([5, 6, 7])
+    G2.add_edges_from([
+        (6, 5, {"label": "-a"}),
+        (6, 7, {"label": "+b"}),
+        (5, 6, {"label": "+a"}),
+        (7, 6, {"label": "-b"})
+    ])
+
+    GM = isomorphism.GraphMatcher(G1, G2, edge_match=isomorphism.categorical_edge_match('label', None))
+    print("Testing subgraph isomorphism with matching directional labels")
+    print("GM is isomorphic, with directional edge labels", GM.is_isomorphic())
+    print("GM is subgraph isomorphic, with directional edge labels", GM.subgraph_is_isomorphic())
+    print(list(GM.subgraph_isomorphisms_iter()))
+    # This gives us the one result we are looking for, but seems a hassle, so we'll first try without it
+
+
 # simple_line_isomorphism()
 # simple_corner_isomorphism()
 # simple_square_isomorphism()
 # square_isomorphism_with_labels()
 # subgraph_isomorphism_with_labels()
-multiple_edges_with_same_label()
+# multiple_edges_with_same_label()
+poc_directed_graph()
