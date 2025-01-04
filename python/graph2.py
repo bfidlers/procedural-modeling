@@ -49,7 +49,6 @@ class Graph:
 
     def edge_string(self, tail, head):
         edge = self.graph[tail][head]
-        print(edge)
         return f"Edge: {edge['label']}: {tail} -> {head}, {edge['angle']}°"
 
     def edge_shorthand(self, tail, head):
@@ -71,9 +70,6 @@ class Graph:
         for vertex in self.graph:
             output += self.vertex_string(vertex)
             output += ", with edges: \n"
-            print(vertex)
-            print(self.get_vertex_edges(vertex))
             for (tail, head) in self.get_vertex_edges(vertex):
-                print(tail, head)
                 output += self.edge_string(tail, head) + "\n"
         return output
