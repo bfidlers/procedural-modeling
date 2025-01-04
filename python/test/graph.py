@@ -24,10 +24,10 @@ def add_square(g, length, x, y, z=0):
     # TODO should ids be generated?
     # We don't really need id's I think, but would be nice if we could generate labels
     # with lookup in dict etc
-    g.add_edge(str(e), v, v + 1)
-    g.add_edge(str(e + 1), v + 1, v + 2)
-    g.add_edge(str(e + 2), v + 2, v + 3)
-    g.add_edge(str(e + 3), v + 3, v)
+    g.add_edge("a", v, v + 1)
+    g.add_edge("b", v + 1, v + 2)
+    g.add_edge("a", v + 2, v + 3)
+    g.add_edge("b", v + 3, v)
 
 
 def some_basic_graph_access():
@@ -57,4 +57,3 @@ def print_graph_shorthand():
 # some_basic_graph_access()
 # print_graph()
 print_graph_shorthand()
-
