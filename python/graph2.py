@@ -18,10 +18,11 @@ class Graph:
             return
         self.graph.add_node(id, pos=point)
 
-    def add_edge(self, label, tail, head):
+    def add_edge(self, label, tail, head, angle = None):
         pos1 = self.graph.nodes[tail]["pos"]
         pos2 = self.graph.nodes[head]["pos"]
-        angle = round(math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / math.pi)
+        if angle is None:
+            angle = round(math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / math.pi)
         # TODO right now we only use positive angles, because the edges don't have a direction
         self.graph.add_edge(tail, head, label=label, angle=abs(angle % 180))
 
