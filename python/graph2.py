@@ -1,11 +1,13 @@
 from pyglet.gl import *
 import networkx as nx
 import math
+from collections import deque
 
 
 class Graph:
     def __init__(self):
         self.graph = nx.Graph()
+        self.vertices_to_loosen = deque()
 
     def vertex_size(self):
         return self.graph.order()
@@ -25,6 +27,44 @@ class Graph:
             self.graph.add_nodes_from(vertices)
         else:
             self.graph.add_nodes_from(vertices, pos=None)
+
+    def vertex_is_set(self, vertex):
+        return self.graph.nodes()[vertex]['pos'] is not None
+
+    def unset_vertex(self, vertex):
+        self.graph.nodes()[vertex]['pos'] = None
+        self.mark_vertex_neighbours(vertex)
+
+    def set_vertex_position(self, vertex, pos):
+        self.graph.nodes()[vertex]['pos'] = pos
+
+    def get_unset_vertices(self):
+        return [v for v, data in self.graph.nodes(data=True) if data['pos'] is None]
+
+    def loosen(self):
+        if len(self.vertices_to_loosen) == 0:
+            unset = self.get_unset_vertices()
+            if len(unset) == 0:
+                print("WARNING: all vertices are set")
+                return
+            for vertex in unset:
+                self.mark_vertex_neighbours(vertex)
+
+        if len(self.vertices_to_loosen) == 0:
+            print("WARNING: No extra vertices to unset")
+            return
+
+        vertex_to_loosen = self.vertices_to_loosen.popleft()
+        if self.vertex_is_set(vertex_to_loosen):
+            self.unset_vertex(vertex_to_loosen)
+
+    def mark_vertex_neighbours(self, vertex):
+        # Mark vertex neighbours to be loosened next
+        for (tail, head) in self.get_vertex_edges(vertex):
+            if tail != vertex and self.vertex_is_set(tail):
+                self.vertices_to_loosen.append(tail)
+            elif head != vertex and self.vertex_is_set(head):
+                self.vertices_to_loosen.append(head)
 
     def add_edge(self, label, tail, head, angle=None):
         if angle is None:
