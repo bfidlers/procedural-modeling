@@ -7,7 +7,7 @@ def load_square_rules():
     rules = [
         load_square_rule1(),
         load_square_rule2(),
-        load_square_rule3(),
+        # load_square_rule3(),
     ]
 
     return rules
@@ -19,7 +19,7 @@ def load_square_rule1():
     lhs.add_edge("a", 0, 1, 90)
 
     rhs = Graph()
-    lhs.add_vertices([0, 1, 2, 3])
+    rhs.add_vertices([0, 1, 2, 3])
     rhs.add_edge("a", 0, 1, 90)
     rhs.add_edge("b", 1, 2, 0)
     rhs.add_edge("a", 2, 3, 90)
@@ -35,7 +35,7 @@ def load_square_rule2():
     lhs.add_edge("b", 0, 1, 0)
 
     rhs = Graph()
-    lhs.add_vertices([0, 1, 2, 3])
+    rhs.add_vertices([0, 1, 2, 3])
     rhs.add_edge("b", 0, 1, 0)
     rhs.add_edge("a", 1, 2, 90)
     rhs.add_edge("b", 2, 3, 0)
@@ -49,7 +49,7 @@ def load_square_rule3():
     lhs = Graph()
 
     rhs = Graph()
-    lhs.add_vertices([0, 1, 2, 3])
+    rhs.add_vertices([0, 1, 2, 3])
     rhs.add_edge("a", 0, 1, 90)
     rhs.add_edge("a", 3, 2, 90)
     rhs.add_edge("b", 1, 2, 0)
@@ -60,5 +60,5 @@ def load_square_rule3():
     return Rule(lhs, rhs, connections)
 
 
-for rule in load_square_rules():
-    print(rule)
+# for rule in load_square_rules():
+#     print(rule)
