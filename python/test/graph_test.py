@@ -15,9 +15,9 @@ def add_square(g, length, x, y, z=0):
     v = g.vertex_size()
 
     g.add_vertex(v, Point(base_x, base_y, z))
-    g.add_vertex(v + 1, Point(base_x + length, base_y, z))
+    g.add_vertex(v + 1, Point(base_x, base_y + length, z))
     g.add_vertex(v + 2, Point(base_x + length, base_y + length, z))
-    g.add_vertex(v + 3, Point(base_x, base_y + length, z))
+    g.add_vertex(v + 3, Point(base_x + length, base_y, z))
 
     e = g.edge_size()
 
