@@ -187,4 +187,4 @@ def poc_directed_graph():
 # square_isomorphism_with_labels()
 # subgraph_isomorphism_with_labels()
 # multiple_edges_with_same_label()
-poc_directed_graph()
+# poc_directed_graph()
