@@ -9,6 +9,9 @@ class Graph:
         self.graph = nx.Graph()
         self.vertices_to_loosen = deque()
 
+    def clear_vertices_to_loosen(self):
+        self.vertices_to_loosen.clear()
+
     def vertex_size(self):
         return self.graph.order()
 
@@ -27,6 +30,9 @@ class Graph:
             self.graph.add_nodes_from(vertices)
         else:
             self.graph.add_nodes_from(vertices, pos=None)
+
+    def vertex_pos(self, vertex):
+        return self.graph.nodes()[vertex]['pos']
 
     def vertex_is_set(self, vertex):
         return self.graph.nodes()[vertex]['pos'] is not None
@@ -60,6 +66,7 @@ class Graph:
 
     def mark_vertex_neighbours(self, vertex):
         # Mark vertex neighbours to be loosened next
+        # TODO probably better to use graph.neighbours(vertex)
         for (tail, head) in self.get_vertex_edges(vertex):
             if tail != vertex and self.vertex_is_set(tail):
                 self.vertices_to_loosen.append(tail)
@@ -99,6 +106,9 @@ class Graph:
 
     def get_vertex_edges(self, vertex):
         return self.graph.edges(vertex)
+
+    def get_vertex_edges_with_data(self, vertex):
+        return self.graph.edges(vertex).data()
 
     def draw(self):
         seen = set()
