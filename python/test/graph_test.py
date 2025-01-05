@@ -77,4 +77,4 @@ def example_graph_short_initialisation():
 # some_basic_graph_access()
 # print_graph()
 # print_graph_shorthand()
-example_graph_short_initialisation()
+# example_graph_short_initialisation()

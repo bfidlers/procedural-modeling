@@ -4,6 +4,12 @@ class Rule:
         self.rhs = rhs
         self.connections = connections
 
+    def long_string(self):
+        output = f"LHS: {str(self.lhs)} \n to: {str(self.rhs)} with connections:\n"
+        for (p1, p2) in self.connections:
+            output += f"{str(p1)} -> {str(p2)}, "
+        return output
+
     def __str__(self):
         output = f"{self.lhs.shorthand()} to: {self.rhs.shorthand()} with connections:"
         for (p1, p2) in self.connections:

@@ -51,6 +51,9 @@ class Graph:
     def remove_vertex(self, id):
         self.graph.remove_node(id)
 
+    def get_edge(self, tail, head):
+        return self.graph[tail][head]
+
     def remove_edge(self, tail, head):
         self.graph.remove_edge(tail, head)
 
