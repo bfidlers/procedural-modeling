@@ -24,18 +24,18 @@ class Camera:
         self.position = np.empty(3, dtype=float)
 
     def look_at(self):
-        unit_x = np.array([1.0, 0.0, 0.0])
         unit_y = np.array([0.0, 1.0, 0.0])
-        unit_z = np.array([0.0, 0.0, 1.0])
 
         # Calculate the front vector
-        self.front = - (np.cos(self.pitch) * np.cos(self.yaw) * unit_x +
-                        np.cos(self.pitch) * np.sin(self.yaw) * unit_y +
-                        np.sin(self.pitch) * unit_z)
+        self.front = np.array([
+            -np.cos(self.pitch) * np.cos(self.yaw),
+            -np.cos(self.pitch) * np.sin(self.yaw),
+            -np.sin(self.pitch)
+        ])
         self.front /= np.linalg.norm(self.front)
 
         # Calculate the left vector
-        self.left = np.cross(unit_z, self.front)
+        self.left = np.cross(unit_y, self.front)
         self.left /= np.linalg.norm(self.left)
 
         # Calculate the up vector
@@ -49,7 +49,7 @@ class Camera:
         glLoadIdentity()
         gluLookAt(self.position[0], self.position[1], self.position[2],
                   self.center[0], self.center[1], self.center[2],
-                  0.0, 0.0, 1.0)
+                  self.up[0], self.up[1], self.up[2])
 
     def rotate(self, right_input, up_input):
         self.yaw += PI_2 * right_input
