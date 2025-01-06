@@ -6,9 +6,9 @@ import numpy as np
 
 
 from camera import Camera
-from graph_test import create_square
+from graph_test import *
 from graph_transform import apply_random_rule
-from rules_test import load_square_rules
+from rules_test import *
 
 window_w = 1000
 window_h = 1000
@@ -20,15 +20,19 @@ FAR_CLIP = 100.0
 window = pyglet.window.Window(width=window_w, height=window_h, caption="Procedural Modelling Demo", resizable=True)
 camera = Camera(np.array([0.0, 0.0, 0.0]), 10.0)
 
-g = create_square()
-square_rules = load_square_rules()
+g = create_empty_graph()
+# g = create_square()
+# g = create_triangle()
+# rules = compute_rules("square")
+# rules = compute_rules("rectangle")
+rules = compute_rules("triangle")
 
 
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == key.N:
         print('The key "N" was pressed')
-        apply_random_rule(square_rules, g)
+        apply_random_rule(rules, g)
     elif symbol == key.S:
         save_image()
     elif symbol == key.PLUS:

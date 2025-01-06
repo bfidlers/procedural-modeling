@@ -2,6 +2,15 @@ from graph2 import *
 from rule import *
 
 
+def compute_rules(graph_type):
+    if graph_type == "square":
+        return load_square_rules()
+    if graph_type == "rectangle":
+        return load_square_rules()
+    if graph_type == "triangle":
+        return load_triangle_rules()
+
+
 def load_square_rules():
     # For now we only use three rules, because we don't work with directed graphs yet
     rules = [
@@ -58,6 +67,27 @@ def load_square_rule3():
     connections = []
 
     return Rule(lhs, rhs, connections)
+
+
+def load_triangle_rules():
+    # Only rule for a triangle is the triangle itself
+    lhs = Graph()
+
+    rhs = Graph()
+    rhs.add_vertices([0, 1, 2])
+    rhs.add_edge("a", 0, 1, 0)
+    rhs.add_edge("b", 0, 2, 90)
+    rhs.add_edge("c", 1, 2, 135)
+
+    connections = []
+
+    rule1 = Rule(lhs, rhs, connections)
+
+    rules = [
+        rule1
+    ]
+
+    return rules
 
 
 # for rule in load_square_rules():

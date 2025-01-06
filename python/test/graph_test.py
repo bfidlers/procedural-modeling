@@ -2,6 +2,11 @@ from graph2 import *
 from point import Point
 
 
+def create_empty_graph():
+    g = Graph()
+    return g
+
+
 def create_square():
     g = Graph()
     add_square(g, 1, 0, 0)
@@ -28,6 +33,20 @@ def add_square(g, length, x, y, z=0):
     g.add_edge("b", v + 1, v + 2)
     g.add_edge("a", v + 2, v + 3)
     g.add_edge("b", v + 3, v)
+
+
+def create_triangle():
+    g = Graph()
+
+    g.add_vertex(0, Point(0, 0))
+    g.add_vertex(1, Point(1, 0))
+    g.add_vertex(2, Point(0, 1))
+
+    g.add_edge("a", 0, 1)
+    g.add_edge("b", 1, 2)
+    g.add_edge("c", 2, 0)
+
+    return g
 
 
 def some_basic_graph_access():
