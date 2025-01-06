@@ -2,7 +2,7 @@ from itertools import combinations
 
 
 def cross(a, b):
-    return a.x * b.y - a.y * b.x
+    return round(a.x * b.y - a.y * b.x, 4)
 
 
 def orient(a, b, c):

@@ -1,3 +1,6 @@
+import math
+
+
 class Point:
     def __init__(self, x=0, y=0, z=0):
         self.x = x
@@ -14,7 +17,9 @@ class Point:
 
     def __eq__(self, other):
         if isinstance(other, Point):
-            return self.x == other.x and self.y == other.y and self.z == other.z
+            return (math.isclose(self.x, other.x, rel_tol=1e-4) and
+                    math.isclose(self.y, other.y, rel_tol=1e-4) and
+                    math.isclose(self.z, other.z, rel_tol=1e-4))
         return False
 
     def __add__(self, o):
