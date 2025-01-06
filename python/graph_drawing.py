@@ -2,9 +2,11 @@ import numpy as np
 from scipy.linalg import lstsq, null_space
 from scipy.sparse import coo_matrix
 from point import Point
+from rejection_sampling import validate_proposal
 from util import sine, cosine
 
 THRESHOLD = 1e-10
+
 
 def find_graph_drawing(graph):
     i = 0
@@ -13,6 +15,8 @@ def find_graph_drawing(graph):
     while True:
         if i > max_iterations:
             # TODO Do something if it does not work
+            # return False and restore copy!
+            print("WARNING: This breaks!")
             break
 
         points = solve_unset_vertices(graph)
@@ -104,15 +108,19 @@ def solve_unset_vertices(graph):
     (_, n) = base_nullspace.shape
 
     # Create random sample -> This should loop
-    z = np.random.rand(n, 1)
-    sample = np.array([sol]).T + (base_nullspace @ z)
+    max_iterations = 10
+    for i in range(max_iterations):
+        print(f"sample {i}")
+        z = np.random.rand(n, 1)
+        sample = np.array([sol]).T + (base_nullspace @ z)
 
-    contains_length_zero = any(sample[length] == 0 for length in l_variables)
-    if contains_length_zero:
-        return []
-    # TODO check sample
-    # repeat if necessary
+        contains_length_zero = any(sample[length] == 0 for length in l_variables)
+        if contains_length_zero:
+            continue
 
-    # TODO should we round?
-    return [(v, Point(sample[x_variables[v]][0], sample[y_variables[v]][0])) for v in unset_vertices]
+        points = [(v, Point(sample[x_variables[v]][0], sample[y_variables[v]][0])) for v in unset_vertices]
+        accepted = validate_proposal(graph, points)
+        if accepted:
+            return points
 
+    return []

@@ -14,5 +14,11 @@ class Point:
             return self.x == other.x and self.y == other.y and self.z == other.z
         return False
 
+    def __add__(self, o):
+        return Point(self.x + o.x, self.y + o.y, self.z + o.z)
+
+    def __sub__(self, o):
+        return Point(self.x - o.x, self.y - o.y, self.z - o.z)
+
     def __str__(self):
         return f"({self.x},{self.y},{self.z})"
