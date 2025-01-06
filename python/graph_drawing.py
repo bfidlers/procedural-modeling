@@ -110,7 +110,7 @@ def solve_unset_vertices(graph):
     max_iterations = 10
     for i in range(max_iterations):
         print(f"sample {i}")
-        z = np.random.rand(n, 1)
+        z = np.random.rand(n, 1) * 20 - 10
         sample = np.array([sol]).T + (base_nullspace @ z)
 
         contains_length_zero = any(sample[length] == 0 for length in l_variables)
