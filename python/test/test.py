@@ -23,9 +23,12 @@ camera = Camera(np.array([0.0, 0.0, 0.0]), 10.0)
 g = create_empty_graph()
 # g = create_square()
 # g = create_triangle()
+# g = create_letter_h()
 # rules = compute_rules("square")
 # rules = compute_rules("rectangle")
-rules = compute_rules("triangle")
+# rules = compute_rules("triangle")
+# rules = compute_rules("letter_h")
+rules = compute_rules("letter_h_no_loops")
 
 
 @window.event

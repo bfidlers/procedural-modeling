@@ -49,6 +49,25 @@ def create_triangle():
     return g
 
 
+def create_letter_h():
+    g = Graph()
+
+    g.add_vertex(0, Point(0, 0))
+    g.add_vertex(1, Point(0, 1))
+    g.add_vertex(2, Point(0, 2))
+    g.add_vertex(3, Point(1, 0))
+    g.add_vertex(4, Point(1, 1))
+    g.add_vertex(5, Point(1, 2))
+
+    g.add_edge("a", 0, 1)
+    g.add_edge("a", 1, 2)
+    g.add_edge("b", 1, 4)
+    g.add_edge("a", 3, 4)
+    g.add_edge("a", 4, 5)
+
+    return g
+
+
 def some_basic_graph_access():
     g = create_square()
     print("Vertex size", g.vertex_size())
