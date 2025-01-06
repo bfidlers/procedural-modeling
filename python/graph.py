@@ -16,6 +16,8 @@ class Graph:
         self.vertices_to_loosen.clear()
 
     def get_next_vertex_id(self):
+        if self.is_empty():
+            return 0
         return max(self.graph.nodes()) + 1
 
     def vertex_size(self):
