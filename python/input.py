@@ -80,3 +80,22 @@ def create_letter_h():
 
     return g
 
+
+def create_fork():
+    g = Graph()
+
+    g.add_vertex(0, Point(0, 0))
+    g.add_vertex(1, Point(0, 1))
+    g.add_vertex(2, Point(-1, 2))
+    g.add_vertex(3, Point(-1, 3))
+    g.add_vertex(4, Point(1, 2))
+    g.add_vertex(5, Point(1, 3))
+
+    g.add_edge("a", 0, 1)
+    g.add_edge("b", 1, 2)
+    g.add_edge("a", 2, 3)
+    g.add_edge("c", 1, 4)
+    g.add_edge("a", 4, 5)
+
+    return g
+

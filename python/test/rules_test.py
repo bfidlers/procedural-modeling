@@ -13,6 +13,8 @@ def compute_rules(graph_type):
         return load_letter_h_rules()
     if graph_type == "letter_h_no_loops":
         return load_letter_h_rules_no_loops()
+    if graph_type == "fork":
+        return load_fork()
 
 
 def load_square_rules():
@@ -169,5 +171,37 @@ def load_letter_h_rules_no_loops():
     return rules
 
 
-# for rule in load_square_rules():
-#     print(rule)
+def load_fork():
+    lhs1 = Graph()
+
+    rhs1 = Graph()
+    rhs1.add_vertices([0, 1])
+    rhs1.add_edge("a", 0, 1, 90)
+
+    c1 = []
+
+    rule1 = Rule(lhs1, rhs1, c1)
+
+    lhs2 = Graph()
+    lhs2.add_vertices([0, 1, 2, 3])
+    lhs2.add_edge("a", 0, 1, 90)
+    lhs2.add_edge("a", 2, 3, 90)
+
+    rhs2 = Graph()
+    rhs2.add_vertices([0, 1, 2, 3, 4, 5])
+    rhs2.add_edge("a", 0, 1, 90)
+    rhs2.add_edge("b", 1, 2, 135)
+    rhs2.add_edge("c", 1, 4, 45)
+    rhs2.add_edge("a", 2, 3, 90)
+    rhs2.add_edge("a", 4, 5, 90)
+
+    c2 = [(0, 0), (1, 3), (3, 5)]
+
+    rule2 = Rule(lhs2, rhs2, c2)
+
+    rules = [
+        rule1,
+        rule2
+    ]
+
+    return rules
