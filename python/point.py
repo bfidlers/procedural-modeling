@@ -9,6 +9,9 @@ class Point:
         self.y = other.y
         self.z = other.z
 
+    def equal_sign(self, other):
+        return self.x * other.x >= 0 and self.y * other.y >= 0 and self.z * other.z >= 0
+
     def __eq__(self, other):
         if isinstance(other, Point):
             return self.x == other.x and self.y == other.y and self.z == other.z

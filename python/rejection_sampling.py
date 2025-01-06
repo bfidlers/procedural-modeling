@@ -9,19 +9,36 @@ def orient(a, b, c):
     return cross(b - a, c - a)
 
 
+def segments_overlap(seg1, seg2):
+    a, b = seg1
+    c, d = seg2
+    if a == c:
+        return (b - a).equal_sign(d - c)
+    if a == d:
+        return (b - a).equal_sign(c - d)
+    if b == c:
+        return (a - b).equal_sign(d - c)
+    if b == d:
+        return (a - b).equal_sign(c - d)
+    return False
+
+
 def intersects(line1, line2):
     (a, b) = line1
     (c, d) = line2
-
-    if a == c or a == d or b == c or b == d:
-        return False
 
     oa = orient(c, d, a)
     ob = orient(c, d, b)
     oc = orient(a, b, c)
     od = orient(a, b, d)
 
-    return oa * ob < 0 and oc * od < 0
+    if oa * ob < 0 and oc * od < 0:
+        return True
+
+    if oa == 0 and ob == 0 and oc == 0 and od == 0:
+        return segments_overlap(line1, line2)
+
+    return False
 
 
 def has_intersections(edges):
