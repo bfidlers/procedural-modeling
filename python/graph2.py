@@ -24,6 +24,9 @@ class Graph:
     def create_copy(self):
         self.copy = copy.deepcopy(self.graph)
 
+    def is_empty(self):
+        return nx.is_empty(self.graph)
+
     def restore_copy(self):
         self.graph = self.copy
 

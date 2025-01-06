@@ -3,7 +3,6 @@ from graph_drawing import *
 from itertools import combinations
 
 
-# TODO we probably want to make a copy somewhere if the transform does not work ...
 def apply_random_rule(rules, graph):
     rule = random.choice(rules)
     apply_rule(rule, graph)
@@ -11,6 +10,10 @@ def apply_random_rule(rules, graph):
 
 # TODO in theory rules need to be applicable from right to left as well
 def apply_rule(rule, graph):
+    if rule.is_starter():
+        starter_rule(rule, graph)
+        return
+
     if not has_isomorphic_subgraph(graph.graph, rule.lhs.graph):
         return
 
@@ -61,5 +64,33 @@ def apply_rule(rule, graph):
             graph.add_edge(edge['label'], id_mapping[tail], id_mapping[head], edge['angle'])
 
     # Find graph drawing
+    if not find_graph_drawing(graph):
+        graph.restore_copy()
+
+
+def starter_rule(rule, graph):
+    graph.create_copy()
+
+    addition = rule.get_starter_graph()
+
+    # Create new node ids
+    id_mapping = {}
+    current_id = graph.vertex_size()
+    for old_id in addition.graph:
+        id_mapping[old_id] = current_id
+        current_id += 1
+
+    # Add new nodes
+    for new_id in id_mapping.values():
+        graph.add_vertex(new_id)
+
+    # Add new edges
+    for old_id in id_mapping:
+        for (tail, head) in addition.get_vertex_edges(old_id):
+            # Edges get added twice, but should not really matter
+            edge = addition.get_edge(tail, head)
+            graph.add_edge(edge['label'], id_mapping[tail], id_mapping[head], edge['angle'])
+
+    # find graph drawing
     if not find_graph_drawing(graph):
         graph.restore_copy()

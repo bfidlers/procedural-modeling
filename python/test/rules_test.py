@@ -3,11 +3,11 @@ from rule import *
 
 
 def load_square_rules():
-    # For now we only use two rules, because we don't work with directed graphs yet
+    # For now we only use three rules, because we don't work with directed graphs yet
     rules = [
         load_square_rule1(),
         load_square_rule2(),
-        # load_square_rule3(),
+        load_square_rule3(),
     ]
 
     return rules
