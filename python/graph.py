@@ -11,13 +11,12 @@ class Graph:
         self.copy = None
         self.graph = nx.Graph()
         self.vertices_to_loosen = deque()
-        self.current_vertex_nb = 0
 
     def clear_vertices_to_loosen(self):
         self.vertices_to_loosen.clear()
 
     def get_next_vertex_id(self):
-        return self.current_vertex_nb + 1
+        return max(self.graph.nodes()) + 1
 
     def vertex_size(self):
         return self.graph.order()
@@ -38,21 +37,14 @@ class Graph:
         if id in self.graph:
             return
         self.graph.add_node(id, pos=point)
-        if id > self.current_vertex_nb:
-            self.current_vertex_nb = id
 
     def add_vertices(self, vertices):
         if len(vertices) == 0:
             return
         if type(vertices[0]) is tuple:
             self.graph.add_nodes_from(vertices)
-            max_id = max(vertices, key=lambda item: item[0])[0]
-            if max_id > self.current_vertex_nb:
-                self.current_vertex_nb = max_id
         else:
             self.graph.add_nodes_from(vertices, pos=None)
-            if max(vertices) > self.current_vertex_nb:
-                self.current_vertex_nb = max(vertices)
 
     def vertex_pos(self, vertex):
         return self.graph.nodes()[vertex]['pos']
