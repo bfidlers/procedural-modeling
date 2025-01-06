@@ -100,7 +100,7 @@ def solve_unset_vertices(graph):
     if rankA == rankAb == col_nb:
         # Only one result
         print("only one solution")
-        return [(v, Point(sol[x_variables[v]][0], sol[y_variables[v]][0])) for v in unset_vertices]
+        return [(v, Point(sol[x_variables[v]], sol[y_variables[v]])) for v in unset_vertices]
 
     base_nullspace = null_space(A)
     base_nullspace[np.abs(base_nullspace) < THRESHOLD] = 0
