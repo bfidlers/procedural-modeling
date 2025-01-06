@@ -1,4 +1,5 @@
 from isomorphism import *
+from graph_drawing import *
 from itertools import combinations
 
 
@@ -58,3 +59,4 @@ def apply_rule(rule, graph):
             graph.add_edge(edge['label'], id_mapping[tail], id_mapping[head], edge['angle'])
 
     # Find graph drawing
+    find_graph_drawing(graph)
