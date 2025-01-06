@@ -1,3 +1,5 @@
+import copy
+
 from isomorphism import *
 from graph_drawing import *
 from itertools import combinations
@@ -15,6 +17,8 @@ def apply_rule(rule, graph):
         return
 
     isomorphism_mapping = get_random_sub_isomorphism(graph.graph, rule.lhs.graph)
+
+    original = copy.deepcopy(graph.graph)
 
     # Delete edges and nodes in between
     anchors_graph = []
@@ -59,4 +63,5 @@ def apply_rule(rule, graph):
             graph.add_edge(edge['label'], id_mapping[tail], id_mapping[head], edge['angle'])
 
     # Find graph drawing
-    find_graph_drawing(graph)
+    if not find_graph_drawing(graph):
+        graph.graph = original

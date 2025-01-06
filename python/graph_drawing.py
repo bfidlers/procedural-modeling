@@ -14,17 +14,14 @@ def find_graph_drawing(graph):
 
     while True:
         if i > max_iterations:
-            # TODO Do something if it does not work
-            # return False and restore copy!
-            print("WARNING: This breaks!")
-            break
+            return False
 
         points = solve_unset_vertices(graph)
         if len(points) != 0:
             for (vertex, pos) in points:
                 graph.set_vertex_position(vertex, pos)
             graph.clear_vertices_to_loosen()
-            break
+            return True
 
         print("loosening graph")
         graph.loosen()
