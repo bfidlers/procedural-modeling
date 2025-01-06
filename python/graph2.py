@@ -1,3 +1,5 @@
+import copy
+
 from pyglet.gl import *
 import networkx as nx
 import math
@@ -6,6 +8,7 @@ from collections import deque
 
 class Graph:
     def __init__(self):
+        self.copy = None
         self.graph = nx.Graph()
         self.vertices_to_loosen = deque()
 
@@ -17,6 +20,12 @@ class Graph:
 
     def edge_size(self):
         return self.graph.size()
+
+    def create_copy(self):
+        self.copy = copy.deepcopy(self.graph)
+
+    def restore_copy(self):
+        self.graph = self.copy
 
     def add_vertex(self, id, point=None):
         if id in self.graph:
@@ -52,17 +61,18 @@ class Graph:
             unset = self.get_unset_vertices()
             if len(unset) == 0:
                 print("WARNING: all vertices are set")
-                return
+                return False
             for vertex in unset:
                 self.mark_vertex_neighbours(vertex)
 
         if len(self.vertices_to_loosen) == 0:
             print("WARNING: No extra vertices to unset")
-            return
+            return False
 
         vertex_to_loosen = self.vertices_to_loosen.popleft()
         if self.vertex_is_set(vertex_to_loosen):
             self.unset_vertex(vertex_to_loosen)
+        return True
 
     def mark_vertex_neighbours(self, vertex):
         # Mark vertex neighbours to be loosened next

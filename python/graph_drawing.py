@@ -14,6 +14,7 @@ def find_graph_drawing(graph):
 
     while True:
         if i > max_iterations:
+            print("Max nb iterations exceeded")
             return False
 
         points = solve_unset_vertices(graph)
@@ -24,7 +25,8 @@ def find_graph_drawing(graph):
             return True
 
         print("loosening graph")
-        graph.loosen()
+        if not graph.loosen():
+            return False
         i += 1
 
 
