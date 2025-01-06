@@ -30,7 +30,7 @@ def add_square(g, length, x, y, z=0):
     base_x = x - length / 2
     base_y = y - length / 2
 
-    v = g.vertex_size()
+    v = g.get_next_vertex_id()
 
     g.add_vertex(v, Point(base_x, base_y, z))
     g.add_vertex(v + 1, Point(base_x, base_y + length, z))

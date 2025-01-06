@@ -38,7 +38,7 @@ def apply_rule(rule, graph):
 
     # Create id_mapping
     id_mapping = {}
-    current_id = graph.vertex_size()
+    current_id = graph.get_next_vertex_id()
     # First add connections
     for (left_anchor, right_anchor) in rule.connections:
         id_mapping[right_anchor] = [val for val in isomorphism_mapping if isomorphism_mapping[val] == left_anchor][0]
@@ -75,7 +75,7 @@ def starter_rule(rule, graph):
 
     # Create new node ids
     id_mapping = {}
-    current_id = graph.vertex_size()
+    current_id = graph.get_next_vertex_id()
     for old_id in addition.graph:
         id_mapping[old_id] = current_id
         current_id += 1
