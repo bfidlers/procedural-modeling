@@ -1,4 +1,4 @@
-from graph2 import *
+from graph import *
 from rule import *
 
 
