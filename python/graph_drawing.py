@@ -10,7 +10,7 @@ THRESHOLD = 1e-10
 
 def find_graph_drawing(graph):
     i = 0
-    max_iterations = 20
+    max_iterations = 5
 
     while True:
         if i > max_iterations:
@@ -115,7 +115,6 @@ def solve_unset_vertices(graph):
     # Create random sample -> This should loop
     max_iterations = 10
     for i in range(max_iterations):
-        print(f"sample {i}")
         z = np.random.rand(n, 1) * 20 - 10
         sample = np.array([sol]).T + (base_nullspace @ z)
 

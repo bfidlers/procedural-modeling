@@ -15,6 +15,7 @@ def apply_rule(rule, graph):
         return
 
     if not has_isomorphic_subgraph(graph.graph, rule.lhs.graph):
+        print("No subgraph isomorphism found")
         return
 
     isomorphism_mapping = get_random_sub_isomorphism(graph.graph, rule.lhs.graph)
