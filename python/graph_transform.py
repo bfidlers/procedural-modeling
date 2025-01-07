@@ -3,6 +3,12 @@ from graph_drawing import *
 from itertools import combinations
 
 
+def apply_n_random_rules(n, rules, graph):
+    for _ in range(n):
+        rule = random.choice(rules)
+        apply_rule(rule, graph)
+
+
 def apply_random_rule(rules, graph):
     rule = random.choice(rules)
     apply_rule(rule, graph)

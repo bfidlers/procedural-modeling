@@ -7,7 +7,7 @@ import numpy as np
 
 from camera import Camera
 from input import *
-from graph_transform import apply_random_rule
+from graph_transform import apply_random_rule, apply_n_random_rules
 from test.rules_test import compute_rules
 
 window_w = 1000
@@ -37,12 +37,27 @@ g = create_empty_graph()
 # rules = compute_rules("fork")
 rules = compute_rules("double_square")
 
+user_input = ""
+
+
+@window.event
+def on_text(text):
+    global user_input
+    user_input += text
+
 
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == key.N:
-        print('The key "N" was pressed')
+        print('Apply one rule')
         apply_random_rule(rules, g)
+    elif symbol == key.ENTER:
+        global user_input
+        amount = int("".join([s for s in user_input if s.isdigit()]))
+        print(amount)
+        user_input = ""
+        print(f"Applying {amount} rules")
+        apply_n_random_rules(amount, rules, g)
     elif symbol == key.S:
         save_image()
     elif symbol == key.PLUS:
