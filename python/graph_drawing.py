@@ -15,6 +15,7 @@ def find_graph_drawing(graph):
     while True:
         if i > max_iterations:
             print("Max nb iterations exceeded")
+            graph.clear_vertices_to_loosen()
             return False
 
         points = solve_unset_vertices(graph)
@@ -100,7 +101,12 @@ def solve_unset_vertices(graph):
     if rankA == rankAb == col_nb:
         # Only one result
         print("only one solution")
-        return [(v, Point(sol[x_variables[v]], sol[y_variables[v]])) for v in unset_vertices]
+        points = [(v, Point(sol[x_variables[v]], sol[y_variables[v]])) for v in unset_vertices]
+        accepted = validate_proposal(graph, points)
+        if accepted:
+            return points
+        else:
+            return []
 
     base_nullspace = null_space(A)
     base_nullspace[np.abs(base_nullspace) < THRESHOLD] = 0
