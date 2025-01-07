@@ -18,21 +18,24 @@ FAR_CLIP = 100.0
 
 
 window = pyglet.window.Window(width=window_w, height=window_h, caption="Procedural Modelling Demo", resizable=True)
+glClearColor(255, 255, 255, 1.0)
 camera = Camera(np.array([0.0, 0.0, 0.0]), 10.0)
 
-# g = create_empty_graph()
+g = create_empty_graph()
 # g = create_square()
 # g = create_cube()
 # g = create_triangle()
 # g = create_letter_h()
-g = create_fork()
+# g = create_fork()
+# g = create_double_square()
 # print(g)
 # rules = compute_rules("square")
 # rules = compute_rules("rectangle")
 # rules = compute_rules("triangle")
 # rules = compute_rules("letter_h")
 # rules = compute_rules("letter_h_no_loops")
-rules = compute_rules("fork")
+# rules = compute_rules("fork")
+rules = compute_rules("double_square")
 
 
 @window.event

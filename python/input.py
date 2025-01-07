@@ -99,3 +99,25 @@ def create_fork():
 
     return g
 
+
+def create_double_square():
+    g = Graph()
+
+    g.add_vertex(0, Point(0, 0))
+    g.add_vertex(1, Point(1, 0))
+    g.add_vertex(2, Point(1, -1))
+    g.add_vertex(3, Point(0, -1))
+    g.add_vertex(4, Point(0, 1))
+    g.add_vertex(5, Point(-1, 1))
+    g.add_vertex(6, Point(-1, 0))
+
+    g.add_edge("a", 0, 4)
+    g.add_edge("a", 3, 0)
+    g.add_edge("a", 2, 1)
+    g.add_edge("a", 6, 5)
+    g.add_edge("b", 0, 1)
+    g.add_edge("b", 6, 0)
+    g.add_edge("b", 5, 4)
+    g.add_edge("b", 3, 2)
+
+    return g
