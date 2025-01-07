@@ -212,23 +212,36 @@ def load_fork():
 def load_double_square_rules():
     rules = load_square_rules()
 
-    lhs = Graph()
-    lhs.add_vertices([0, 1, 2, 3, 4, 5])
-    lhs.add_edge("b", 0, 1, 0)
-    lhs.add_edge("a", 2, 1, 90)
-    lhs.add_edge("a", 4, 3, 90)
-    lhs.add_edge("b", 4, 5, 0)
+    lhs1 = Graph()
+    lhs1.add_vertices([0, 1, 2, 3, 4, 5])
+    lhs1.add_edge("b", 0, 1, 0)
+    lhs1.add_edge("a", 2, 1, 90)
+    lhs1.add_edge("a", 4, 3, 90)
+    lhs1.add_edge("b", 4, 5, 0)
 
-    rhs = Graph()
-    rhs.add_vertices([0, 1, 2, 3, 4])
-    rhs.add_edge("a", 0, 1, 90)
-    rhs.add_edge("a", 2, 0, 90)
-    rhs.add_edge("b", 0, 3, 0)
-    rhs.add_edge("b", 4, 0, 0)
+    rhs1 = Graph()
+    rhs1.add_vertices([0, 1, 2, 3, 4])
+    rhs1.add_edge("a", 0, 1, 90)
+    rhs1.add_edge("a", 2, 0, 90)
+    rhs1.add_edge("b", 0, 3, 0)
+    rhs1.add_edge("b", 4, 0, 0)
 
-    c = [(0, 4), (2, 2), (3, 1), (5, 3)]
+    c1 = [(0, 4), (2, 2), (3, 1), (5, 3)]
 
-    rule = Rule(lhs, rhs, c)
-    rules.append(rule)
+    rule1 = Rule(lhs1, rhs1, c1)
+
+    lhs2 = Graph()
+    lhs2.add_vertices([0, 1, 2, 3, 4, 5])
+    lhs2.add_edge("b", 0, 1, 0)
+    lhs2.add_edge("a", 1, 2, 90)
+    lhs2.add_edge("a", 3, 4, 90)
+    lhs2.add_edge("b", 4, 5, 0)
+
+    c2 = [(0, 4), (2, 1), (3, 2), (5, 3)]
+
+    rule2 = Rule(lhs2, rhs1, c2)
+
+    rules.append(rule1)
+    rules.append(rule2)
 
     return rules
