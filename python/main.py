@@ -10,7 +10,7 @@ from input import *
 from graph_transform import apply_random_rule, apply_n_random_rules
 from test.rules_test import compute_rules
 
-window_w = 1000
+window_w = 1600
 window_h = 1000
 FOV_Y = 60.0
 NEAR_CLIP = 0.1
