@@ -1,6 +1,10 @@
 import math
 import sys
 from itertools import combinations
+import random
+import networkx as nx
+import numpy as np
+
 
 from point import Point
 
@@ -152,4 +156,38 @@ def validate_proposal(graph, points):
     is_planar_drawing = check_planarity(graph, points)
     if not is_planar_drawing:
         return False
+    # accepted = metropolis_hastings(graph, points, compute_area)
+    # if not accepted:
+    #     return False
     return True
+
+
+def metropolis_hastings(graph, points, energy_fn):
+    new_graph = graph.create_copy()
+    for (vertex, pos) in points:
+        new_graph.set_vertex_position(vertex, pos)
+    energy_current = energy_fn(graph)
+    energy_proposed = energy_fn(new_graph, points)
+
+    acceptance_prob = min(1.0, math.exp(energy_current - energy_proposed))
+
+    if random.random() < acceptance_prob:
+        return True
+    return False
+
+
+def compute_area(graph):
+    if not nx.is_connected(graph):
+        raise ValueError("Graph must consist of connected components")
+
+    pos = nx.get_node_attributes(graph, 'pos')  # Dictionary {node: (x, y)}
+
+    cycle = list(nx.find_cycle(graph, orientation='original'))  # Returns list of (u, v, direction)
+
+    ordered_nodes = [cycle[0][0]] + [edge[1] for edge in cycle]
+    coords = np.array([pos[node] for node in ordered_nodes])  # [(x1, y1), (x2, y2), ..., (xn, yn)]
+
+    x, y = coords[:, 0], coords[:, 1]
+    area = 0.5 * abs(np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1)))
+
+    return area
