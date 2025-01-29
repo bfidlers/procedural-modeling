@@ -6,6 +6,7 @@ import numpy as np
 
 
 from camera import Camera
+from graph_hierarchy import construct_grammar
 from input import *
 from graph_transform import apply_random_rule, apply_n_random_rules
 from test.rules_test import compute_rules
@@ -29,13 +30,8 @@ g = create_empty_graph()
 # g = create_fork()
 # g = create_double_square()
 # print(g)
+# rules = construct_grammar(g)
 rules = compute_rules("square")
-# rules = compute_rules("rectangle")
-# rules = compute_rules("triangle")
-# rules = compute_rules("letter_h")
-# rules = compute_rules("letter_h_no_loops")
-# rules = compute_rules("fork")
-# rules = compute_rules("double_square")
 
 user_input = ""
 

@@ -11,6 +11,7 @@ class Graph:
         self.copy = None
         self.graph = nx.Graph()
         self.vertices_to_loosen = deque()
+        self.graph_boundary_string = ""
 
     def clear_vertices_to_loosen(self):
         self.vertices_to_loosen.clear()
@@ -28,6 +29,9 @@ class Graph:
 
     def create_copy(self):
         self.copy = copy.deepcopy(self.graph)
+
+    def get_graph_copy(self):
+        return copy.deepcopy(self.graph)
 
     def is_empty(self):
         return nx.is_empty(self.graph)
@@ -174,3 +178,87 @@ class Graph:
             for (tail, head) in self.get_vertex_edges(vertex):
                 output += self.edge_string(tail, head) + "\n"
         return output
+
+    def get_distinct_edge_labels(self):
+        labels = set()
+        for (_, _, data) in list(self.graph.edges().data()):
+            if data["label"] in labels:
+                continue
+            labels.add(data["label"])
+        return list(labels)
+
+    def contains_half_edge(self, label):
+        return label in self.graph_boundary_string
+
+    def glue_half_edge(self, label):
+        tail = None
+        head = None
+        for (node, data) in list(self.graph.nodes(data=True)):
+            if label in data["half_edges"] == label:
+                tail = node
+            if f"{label}'" in data["half_edges"] == label:
+                head = node
+        if not tail or not head:
+            raise Exception('No match found to glue')
+        self.graph.add_edge(tail, head,  label=label)
+        self.graph.nodes[tail]["half_edge"].remove(label)
+        self.graph.nodes[head]["half_edge"].remove(f"{label}'")
+
+    def contains_opposite_half_edges(self):
+        for x in self.graph_boundary_string:
+            if x == "'" or x == 'v' or x == '^':
+                continue
+            match = (f"{x}'{x}" in self.graph_boundary_string or
+                     f"{x}{x}'" in self.graph_boundary_string or
+                     f"{x}'v{x}" in self.graph_boundary_string or
+                     f"{x}v{x}'" in self.graph_boundary_string)
+            if match:
+                return x
+        return False
+
+    def get_distinct_edges(self):
+        edges = []
+        labels = set()
+        for (tail, head, data) in list(self.graph.edges().data()):
+            if data["label"] in labels:
+                continue
+            bare_edge = nx.Graph()
+            bare_edge.add_edge(tail, head, label=data["label"], angle=data["angle"])
+            edges.append(bare_edge)
+            labels.add(data["label"])
+        return edges
+
+    def split_in_primitives(self):
+        primitives = []
+        for node in self.graph.nodes():
+            half_edges = []
+            for (_, _, data) in self.graph.edges(node, data=True):
+                half_edges.append(data["label"])
+
+            primitive = Graph()
+            primitive.graph = nx.Graph()
+            primitive.graph.add_node(node, half_edges=half_edges)
+
+            primitives.append(primitive)
+
+        return primitives
+
+    def get_half_edges(self):
+        half_edges = []
+        for (node, data) in self.graph.nodes(data=True):
+            if len(data["half_edges"]):
+                for half_edge in data["half_edges"]:
+                    half_edges.append((half_edge, node))
+
+    def construct_graph_boundary(self):
+        outer_cycle = list(nx.cycle_basis(self.graph))[0]
+
+        boundary_labels = []
+        for i in range(len(outer_cycle)):
+            u, v = outer_cycle[i], outer_cycle[(i + 1) % len(outer_cycle)]
+            if self.graph.has_edge(u, v):
+                label = self.graph[u][v].get("label", "?")
+                boundary_labels.append(str(label))
+
+        boundary_string = "".join(boundary_labels)
+        return boundary_string
