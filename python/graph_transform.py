@@ -4,18 +4,16 @@ from itertools import combinations
 import numpy as np
 
 
+current_probabilities = []
+SKEW = 0.01
+
+
 def apply_n_random_rules(n, rules, graph):
+    global current_probabilities
+    current_probabilities = [1 / len(rules)] * len(rules)
     for i in range(n):
         print(i)
         apply_random_rule(rules, graph)
-        # apply_rule_with_skewed_probability(rules, graph)
-
-
-def apply_rule_with_skewed_probability(rules, graph):
-    # probabilities = [0.1, 0.1, 0.8]
-    probabilities = [0.4, 0.4, 0.2]
-    rule = np.random.choice(rules, p=probabilities)
-    apply_rule(rule, graph)
 
 
 def apply_random_rule(rules, graph):
@@ -23,7 +21,42 @@ def apply_random_rule(rules, graph):
     apply_rule(rule, graph)
 
 
-# TODO in theory rules need to be applicable from right to left as well
+def apply_rule_with_skewed_probability(rules, graph, probabilities):
+    index = np.random.choice(len(rules), p=probabilities)
+    rule = rules[index]
+    apply_rule(rule, graph)
+    return index
+
+
+def apply_random_rule_isomorphisms(rules, graph):
+    amounts = get_amount_of_isomorphisms(rules, graph)
+    total = sum(amounts)
+    probabilities = [amount / total for amount in amounts]
+    apply_rule_with_skewed_probability(rules, graph, probabilities)
+
+
+def apply_rule_with_balanced_probabilities(rules, graph):
+    global current_probabilities
+    index = apply_rule_with_skewed_probability(rules, graph, current_probabilities)
+    for i in range(len(current_probabilities)):
+        if index == i:
+            current_probabilities[i] -= SKEW
+        else:
+            current_probabilities[i] += SKEW / (len(current_probabilities) - 1)
+
+
+def apply_rule_with_self_reinforcing_probabilities(rules, graph):
+    global current_probabilities
+    index = apply_rule_with_skewed_probability(rules, graph, current_probabilities)
+    if current_probabilities[index] >= 0.9:
+        return
+    for i in range(len(current_probabilities)):
+        if index == i:
+            current_probabilities[i] += SKEW
+        else:
+            current_probabilities[i] -= SKEW / (len(current_probabilities) - 1)
+
+
 def apply_rule(rule, graph):
     if rule.is_starter():
         starter_rule(rule, graph)
