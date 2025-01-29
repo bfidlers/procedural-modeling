@@ -74,6 +74,7 @@ def is_in_boundary_box(point):
         return False
     if point.y < lower_y or point.y > upper_y:
         return False
+    return True
 
 
 def is_in_boundary_circle(point):
@@ -122,7 +123,6 @@ def ray_intersects_segment(p, segment):
 def is_in_boundary_polygon(point):
     # polygon = [Point(-3, -3), Point(-3, 3), Point(3, 3), Point(3, -3)]
     polygon = [Point(-1, -3), Point(-1, 1), Point(-3, 1), Point(-3, 3), Point(3, 3), Point(3, 1), Point(1, 1), Point(1, -3)]
-    polygon = [Point(-1, -3), Point(-1, 1), Point(-3, 1), Point(-3, 3), Point(3, 3), Point(3, 1), Point(1, 1), Point(1, -3)]
     count = 0
     for i in range(len(polygon) - 1):
         count += ray_intersects_segment(point, (polygon[i], polygon[i + 1]))
@@ -133,9 +133,9 @@ def is_in_boundary_polygon(point):
 
 
 def point_in_boundary_region(point):
-    # return is_in_boundary_box(point)
+    return is_in_boundary_box(point)
     # return is_in_boundary_circle(point)
-    return is_in_boundary_donut(point)
+    # return is_in_boundary_donut(point)
     # return is_in_boundary_polygon(point)
 
 

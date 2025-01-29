@@ -29,13 +29,13 @@ g = create_empty_graph()
 # g = create_fork()
 # g = create_double_square()
 # print(g)
-# rules = compute_rules("square")
+rules = compute_rules("square")
 # rules = compute_rules("rectangle")
 # rules = compute_rules("triangle")
 # rules = compute_rules("letter_h")
 # rules = compute_rules("letter_h_no_loops")
 # rules = compute_rules("fork")
-rules = compute_rules("double_square")
+# rules = compute_rules("double_square")
 
 user_input = ""
 

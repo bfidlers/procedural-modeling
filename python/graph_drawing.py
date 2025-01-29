@@ -113,7 +113,7 @@ def solve_unset_vertices(graph):
     (_, n) = base_nullspace.shape
 
     # Create random sample -> This should loop
-    max_iterations = 10
+    max_iterations = 20
     for i in range(max_iterations):
         z = np.random.rand(n, 1) * 20 - 10
         sample = np.array([sol]).T + (base_nullspace @ z)

@@ -139,6 +139,7 @@ class Graph:
             pos2 = self.graph.nodes[head]["pos"]
 
             glColor4f(0, 0, 0, 1)
+            glLineWidth(2)
             glBegin(GL_LINES)
             glVertex3f(pos1.x, pos1.y, pos1.z)
             glVertex3f(pos2.x, pos2.y, pos2.z)

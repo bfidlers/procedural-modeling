@@ -1,12 +1,21 @@
 from isomorphism import *
 from graph_drawing import *
 from itertools import combinations
+import numpy as np
 
 
 def apply_n_random_rules(n, rules, graph):
-    for _ in range(n):
-        rule = random.choice(rules)
-        apply_rule(rule, graph)
+    for i in range(n):
+        print(i)
+        apply_random_rule(rules, graph)
+        # apply_rule_with_skewed_probability(rules, graph)
+
+
+def apply_rule_with_skewed_probability(rules, graph):
+    # probabilities = [0.1, 0.1, 0.8]
+    probabilities = [0.4, 0.4, 0.2]
+    rule = np.random.choice(rules, p=probabilities)
+    apply_rule(rule, graph)
 
 
 def apply_random_rule(rules, graph):
