@@ -4,10 +4,14 @@ from pyglet.window import key, mouse
 from pyglet.gl import *
 import numpy as np
 
-from camera import Camera
-from input import *
 
-window_w = 1000
+from camera import Camera
+from graph_hierarchy import construct_grammar
+from input import *
+from graph_transform import apply_random_rule, apply_n_random_rules
+from test.rules_test import compute_rules
+
+window_w = 1600
 window_h = 1000
 FOV_Y = 60.0
 NEAR_CLIP = 0.1
@@ -15,15 +19,41 @@ FAR_CLIP = 100.0
 
 
 window = pyglet.window.Window(width=window_w, height=window_h, caption="Procedural Modelling Demo", resizable=True)
+glClearColor(255, 255, 255, 1.0)
 camera = Camera(np.array([0.0, 0.0, 0.0]), 10.0)
 
-g = load_graph()
+g = create_empty_graph()
+# g = create_square()
+# g = create_cube()
+# g = create_triangle()
+# g = create_letter_h()
+# g = create_fork()
+# g = create_double_square()
+# print(g)
+# rules = construct_grammar(g)
+rules = compute_rules("square")
+
+user_input = ""
+
+
+@window.event
+def on_text(text):
+    global user_input
+    user_input += text
 
 
 @window.event
 def on_key_press(symbol, modifiers):
     if symbol == key.N:
-        print('The key "N" was pressed')
+        print('Apply one rule')
+        apply_random_rule(rules, g)
+    elif symbol == key.ENTER:
+        global user_input
+        amount = int("".join([s for s in user_input if s.isdigit()]))
+        print(amount)
+        user_input = ""
+        print(f"Applying {amount} rules")
+        apply_n_random_rules(amount, rules, g)
     elif symbol == key.S:
         save_image()
     elif symbol == key.PLUS:
